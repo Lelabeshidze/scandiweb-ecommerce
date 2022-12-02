@@ -3,6 +3,8 @@ import Logo from "../Assets/logo.svg";
 import Cart from "../Assets/cart.svg";
 import styled from "styled-components";
 import "../App.css";
+import { getData } from "../GraphQL/getData";
+import { GET_CATEGORIES, GET_CURRENCIES } from "../GraphQL/dataQueries";
 class Header extends Component {
   render() {
     return (
@@ -38,4 +40,4 @@ const HeaderContainer = styled.div`
     display: flex;
   }
 `;
-export default Header;
+export default getData(Header, GET_CURRENCIES);
