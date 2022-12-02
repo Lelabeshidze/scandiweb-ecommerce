@@ -5,26 +5,32 @@ import styled from "styled-components";
 import "../App.css";
 import { getData } from "../GraphQL/getData";
 import { GET_CATEGORIES, GET_CURRENCIES } from "../GraphQL/dataQueries";
+import Navigation from "./Navigation";
 class Header extends Component {
   render() {
-    return (
-      <HeaderContainer className="header">
-        <nav>
-          <ul className="navigation">
-            <li style={{ paddingLeft: "10px" }}>WOMEN</li>
-            <li style={{ paddingLeft: "10px" }}>MEN</li>
-            <li style={{ paddingLeft: "10px" }}>KIDS</li>
-          </ul>
-        </nav>
+    const { data } = this.props;
 
-        <img src={Logo} alt="logo" />
+    if (data) {
+      return (
+        <HeaderContainer className="header">
+          <Navigation />
+          <img src={Logo} alt="logo" />
 
-        <div className="actions">
-          <div>Currencies</div>
-          <img src={Cart} alt="logo" />
-        </div>
-      </HeaderContainer>
-    );
+          <div className="actions">
+            <div>Currencies</div>
+            <img src={Cart} alt="logo" />
+          </div>
+          {data?.currencies?.map((currency, index) => {
+            return (
+              <div key={index}>
+                {currency.label}
+                {currency.symbol}
+              </div>
+            );
+          })}
+        </HeaderContainer>
+      );
+    }
   }
 }
 const HeaderContainer = styled.div`

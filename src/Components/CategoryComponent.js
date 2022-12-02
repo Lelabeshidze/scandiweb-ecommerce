@@ -5,11 +5,28 @@ import Header from "../Layout/Header";
 
 class CategoryComponent extends Component {
   render() {
-    return (
-      <div>
-        <Header />
-      </div>
-    );
+    const { data, categoryName } = this.props;
+    console.log(categoryName)
+    if (data) {
+      if (!data.category)
+        return <h1 className="error-message">Category not found</h1>;
+      const { products } = data.category;
+
+      return (
+        <>
+          <Header />
+          <div>
+            <h1>{categoryName}</h1>
+            <ul>
+              {products.map((product) => {
+                return <div key={product.id}> {product.name}</div>;
+              })}
+            </ul>
+          </div>
+        
+        </>
+      );
+    }
   }
 }
 
