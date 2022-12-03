@@ -8,15 +8,15 @@ class ProductItem extends Component {
   render() {
     const { data } = this.props;
     const { products } = data.category;
-    console.log(products[0].prices[0].amount);
+    console.log(products);
     // console.log(data.category.products);
     return (
       <div>
         {products?.map((product, index) => {
           return (
             <SingleProduct key={index}>
-              <img src={product.gallery} alt="img" />
-              <h3>{product.name}</h3>
+              <img src={product.gallery[0]} alt="img" />
+              <p>{product.name}</p>
               <h4>{product.prices.amount}</h4>
             </SingleProduct>
           );
@@ -27,10 +27,11 @@ class ProductItem extends Component {
 }
 
 const SingleProduct = styled.div`
-  max-width: 600px;
+  max-width: 700px;
   width: 100%;
+  margin-top:90px;
   img {
-    width: 70%;
+    width: 80%;
   }
 `;
 

@@ -22,6 +22,7 @@ export const GET_PRODUCTS_BY_CATEGORIES = gql`
       products {
         id
         name
+        category
         prices {
           currency {
             label

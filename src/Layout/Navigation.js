@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { GET_CATEGORIES } from "../GraphQL/dataQueries";
 import { getData } from "../GraphQL/getData";
@@ -12,7 +13,15 @@ class Navigation extends Component {
         <NavBar>
           <ul className="navigation">
             {data?.categories?.map((category, index) => {
-              return <li key={index}>{category.name}</li>;
+              return (
+                <Link
+                  className="Li"
+                  key={index}
+                  to={`/products/categories/${category.name}?page=1`}
+                >
+                  {category.name}
+                </Link>
+              );
             })}
           </ul>
         </NavBar>
@@ -27,8 +36,9 @@ const NavBar = styled.nav`
     text-decoration: none;
     list-style: none;
     justify-content: space-between;
-    li{
-        margin-left:10px;
+    .Li {
+      padding-left: 20px;
+      text-transform: uppercase;
     }
   }
 `;
