@@ -15,19 +15,18 @@ class Header extends Component {
         <HeaderContainer className="header">
           <Navigation />
           <img src={Logo} alt="logo" />
-
           <div className="actions">
-            <div>Currencies</div>
+            {data?.currencies?.map((currency, index) => {
+              return (
+                <div key={index}>
+                  {currency.label}
+                  {currency.symbol}
+                </div>
+              );
+            })}
+
             <img src={Cart} alt="logo" />
           </div>
-          {data?.currencies?.map((currency, index) => {
-            return (
-              <div key={index}>
-                {currency.label}
-                {currency.symbol}
-              </div>
-            );
-          })}
         </HeaderContainer>
       );
     }
@@ -37,11 +36,6 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .navigation {
-    display: flex;
-    text-decoration: none;
-    list-style: none;
-  }
   .actions {
     display: flex;
   }
