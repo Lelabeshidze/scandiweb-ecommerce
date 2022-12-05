@@ -45,6 +45,7 @@ export const GET_PRODUCT = gql`
       inStock
       gallery
       description
+      category
       attributes {
         name
         type
@@ -60,6 +61,66 @@ export const GET_PRODUCT = gql`
           symbol
         }
         amount
+      }
+    }
+  }
+`;
+export const GET_TECH_PRODUCTS = gql`
+  query {
+    category(input: { title: "tech" }) {
+      name
+      products {
+        name
+        inStock
+        gallery
+        description
+        category
+        attributes {
+          name
+          type
+          items {
+            id
+            displayValue
+            value
+          }
+        }
+        prices {
+          currency {
+            label
+            symbol
+          }
+          amount
+        }
+      }
+    }
+  }
+`;
+export const GET_CLOTHES_PRODUCTS = gql`
+  query {
+    category(input: { title: "clothes" }) {
+      name
+      products {
+        name
+        inStock
+        gallery
+        description
+        category
+        attributes {
+          name
+          type
+          items {
+            id
+            displayValue
+            value
+          }
+        }
+        prices {
+          currency {
+            label
+            symbol
+          }
+          amount
+        }
       }
     }
   }

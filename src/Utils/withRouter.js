@@ -6,10 +6,10 @@ export const withRouter = (Component) => (props) => {
   const params = useParams();
   return (
     <Component
+      {...props}
       location={location}
       params={params}
       navigate={navigate}
-      {...props}
     />
   );
 };

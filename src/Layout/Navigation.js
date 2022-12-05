@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { GET_CATEGORIES } from "../GraphQL/dataQueries";
 import { getData } from "../GraphQL/getData";
+import { withRouter } from "../Utils/withRouter";
 
 class Navigation extends Component {
   render() {
     const { data } = this.props;
+   
+  
 
     return (
       <div>
@@ -14,13 +17,13 @@ class Navigation extends Component {
           <ul className="navigation">
             {data?.categories?.map((category, index) => {
               return (
-                <Link
+                <NavLink
                   className="Li"
                   key={index}
-                  to={`/products/categories/${category.name}?page=1`}
+                  to={`/${category.name === "all" ? "" : category.name}`}
                 >
                   {category.name}
-                </Link>
+                </NavLink>
               );
             })}
           </ul>
@@ -43,4 +46,7 @@ const NavBar = styled.nav`
   }
 `;
 
-export default getData(Navigation, GET_CATEGORIES);
+export default withRouter(getData(Navigation, GET_CATEGORIES));
+
+
+

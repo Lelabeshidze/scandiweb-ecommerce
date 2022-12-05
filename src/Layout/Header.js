@@ -13,7 +13,7 @@ class Header extends Component {
     if (data) {
       return (
         <HeaderContainer className="header">
-          <Navigation />
+          <Navigation {...this.props} />
           <img src={Logo} alt="logo" />
           <div className="actions">
             {data?.currencies?.map((currency, index) => {
