@@ -45,7 +45,6 @@ export const GET_PRODUCT = gql`
       inStock
       gallery
       description
-      category
       attributes {
         name
         type
@@ -65,6 +64,7 @@ export const GET_PRODUCT = gql`
     }
   }
 `;
+
 export const GET_TECH_PRODUCTS = gql`
   query {
     category(input: { title: "tech" }) {

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { GET_PRODUCTS_BY_CATEGORIES } from "../../GraphQL/dataQueries";
 import { getAllProducts } from "../../GraphQL/getAllCategory";
@@ -7,16 +8,11 @@ import { withRouter } from "../../Utils/withRouter";
 import ProductItem from "../ProductItem/ProductItem";
 
 class CategoryComponent extends Component {
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.data !== this.props.data) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
   render() {
-    const { data,categoryName } = this.props;
-    console.log(data);
+    const { data } = this.props;
+
+   
     if (data) {
       if (!data.category)
         return <h1 className="error-message">Category not found</h1>;

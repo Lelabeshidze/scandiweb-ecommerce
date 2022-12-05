@@ -11,13 +11,6 @@ import { withRouter } from "../../Utils/withRouter";
 import ProductItem from "../ProductItem/ProductItem";
 
 class TechComponent extends Component {
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.data !== this.props.data) {
-      return true;
-    } else {
-      return false;
-    }
-  }
   render() {
     const { data } = this.props;
 
@@ -31,7 +24,7 @@ class TechComponent extends Component {
 
       return (
         <>
-            <Header />
+          <Header />
           <ProductContainer>
             {products.map((product, index) => {
               return (

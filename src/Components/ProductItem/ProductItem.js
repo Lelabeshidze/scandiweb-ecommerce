@@ -4,21 +4,25 @@ import { getProductById } from "../../GraphQL/getProduct";
 import { GET_PRODUCTS_BY_CATEGORIES } from "../../GraphQL/dataQueries.js";
 import { getAllProducts } from "../../GraphQL/getAllCategory";
 import styled from "styled-components";
+import { withRouter } from "../../Utils/withRouter";
+import { Link } from "react-router-dom";
+import SingleProductComponent from "../ProductComponent/SingleProductComponent";
 class ProductItem extends Component {
   render() {
     const { data } = this.props;
     const { products } = data.category;
-    console.log(products);
-    // console.log(data.category.products);
+
     return (
       <div>
         {products?.map((product, index) => {
           return (
-            <SingleProduct key={index}>
-              <img src={product.gallery[0]} alt="img" />
-              <p>{product.name}</p>
-              <h4>{product.prices.amount}</h4>
-            </SingleProduct>
+            <Link to={`${this.props.product.id}/description`} key={index}>
+              <SingleProduct product={this.props.product}>
+                <img src={product.gallery[0]} alt="img" />
+                <p>{product.name}</p>
+                <h4>{product.prices.amount}</h4>
+              </SingleProduct>
+            </Link>
           );
         })}
       </div>
@@ -29,10 +33,12 @@ class ProductItem extends Component {
 const SingleProduct = styled.div`
   max-width: 700px;
   width: 100%;
-  margin-top:90px;
+  margin-top: 90px;
   img {
     width: 80%;
   }
 `;
 
-export default getAllProducts(ProductItem, GET_PRODUCTS_BY_CATEGORIES);
+export default withRouter(
+  getAllProducts(ProductItem, GET_PRODUCTS_BY_CATEGORIES)
+);

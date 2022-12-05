@@ -8,13 +8,7 @@ import { withRouter } from "../../Utils/withRouter";
 import ProductItem from "../ProductItem/ProductItem";
 
 class ClothesComponent extends Component {
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.data !== this.props.data) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
   render() {
     const { data } = this.props;
 
