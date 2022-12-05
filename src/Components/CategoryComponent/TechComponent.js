@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   GET_PRODUCTS_BY_CATEGORIES,
@@ -28,11 +29,13 @@ class TechComponent extends Component {
           <ProductContainer>
             {products.map((product, index) => {
               return (
-                <SingleProduct key={index}>
-                  <img src={product.gallery[0]} alt="img" />
-                  <p>{product.name}</p>
-                  <h4>{product.prices.amount}</h4>
-                </SingleProduct>
+                <Link to={`${product.id}/description`} key={index}>
+                  <SingleProduct key={index}>
+                    <img src={product.gallery[0]} alt="img" />
+                    <p>{product.name}</p>
+                    <h4>{product.prices.amount}</h4>
+                  </SingleProduct>
+                </Link>
               );
             })}
           </ProductContainer>

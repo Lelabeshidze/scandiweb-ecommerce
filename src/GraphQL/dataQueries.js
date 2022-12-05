@@ -75,6 +75,7 @@ export const GET_TECH_PRODUCTS = gql`
         gallery
         description
         category
+        id
         attributes {
           name
           type
@@ -105,6 +106,7 @@ export const GET_CLOTHES_PRODUCTS = gql`
         gallery
         description
         category
+        id
         attributes {
           name
           type

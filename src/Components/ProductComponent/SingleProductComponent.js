@@ -3,6 +3,7 @@ import { GET_PRODUCT } from "../../GraphQL/dataQueries";
 import { getProductById } from "../../GraphQL/getProduct";
 import { withRouter } from "../../Utils/withRouter";
 import ProductItem from "../ProductItem/ProductItem";
+import Header from "../../Layout/Header";
 
 class SingleProductComponent extends Component {
   render() {
@@ -12,6 +13,7 @@ class SingleProductComponent extends Component {
     console.log(data, "product");
     return (
       <div>
+        <Header />
         <div>
           <img src={data?.product?.gallery[0]} alt="" />
         </div>
@@ -24,9 +26,9 @@ class SingleProductComponent extends Component {
               <div key={index}>
                 <h3>{name}</h3>
                 <div>
-                    {items.map((item)=> {
-                        return <div key={item.id}>{item.displayValue}</div>
-                    })}
+                  {items.map((item) => {
+                    return <div key={item.id}>{item.displayValue}</div>;
+                  })}
                 </div>
               </div>
             );

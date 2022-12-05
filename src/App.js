@@ -25,6 +25,14 @@ class App extends Component {
             path="/:productId/description"
             element={<SingleProductComponent />}
           />
+          <Route
+            path="/clothes/:productId/description"
+            element={<SingleProductComponent />}
+          />
+          <Route
+            path="/tech/:productId/description"
+            element={<SingleProductComponent />}
+          />
         </Routes>
       </div>
     );
