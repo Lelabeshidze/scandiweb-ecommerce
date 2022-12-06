@@ -8,11 +8,9 @@ import { withRouter } from "../../Utils/withRouter";
 import ProductItem from "../ProductItem/ProductItem";
 
 class CategoryComponent extends Component {
-
   render() {
     const { data } = this.props;
 
-   
     if (data) {
       if (!data.category)
         return <h1 className="error-message">Category not found</h1>;

@@ -9,8 +9,7 @@ class SingleProductComponent extends Component {
   render() {
     const { params } = this.props;
     const { data } = this.props;
-    console.log(params);
-    console.log(data, "product");
+  
     return (
       <div>
         <Header />

@@ -6,30 +6,17 @@ import "../App.css";
 import { getData } from "../GraphQL/getData";
 import { GET_CATEGORIES, GET_CURRENCIES } from "../GraphQL/dataQueries";
 import Navigation from "./Navigation";
+import CurrenciesComponent from "../Components/Currencies/CurrenciesComponent";
 class Header extends Component {
   render() {
-    const { data } = this.props;
+    return (
+      <HeaderContainer className="header">
+        <Navigation {...this.props} />
+        <img src={Logo} alt="logo" />
 
-    if (data) {
-      return (
-        <HeaderContainer className="header">
-          <Navigation {...this.props} />
-          <img src={Logo} alt="logo" />
-          <div className="actions">
-            {data?.currencies?.map((currency, index) => {
-              return (
-                <div key={index}>
-                  {currency.label}
-                  {currency.symbol}
-                </div>
-              );
-            })}
-
-            <img src={Cart} alt="logo" />
-          </div>
-        </HeaderContainer>
-      );
-    }
+        <CurrenciesComponent />
+      </HeaderContainer>
+    );
   }
 }
 const HeaderContainer = styled.div`
@@ -40,4 +27,4 @@ const HeaderContainer = styled.div`
     display: flex;
   }
 `;
-export default getData(Header, GET_CURRENCIES);
+export default Header;

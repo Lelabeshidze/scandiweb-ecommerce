@@ -11,16 +11,29 @@ class ProductItem extends Component {
   render() {
     const { data } = this.props;
     const { products } = data.category;
-
+    
     return (
       <div>
         {products?.map((product, index) => {
+          const { prices } = product;
+        
           return (
             <Link to={`${this.props.product.id}/description`} key={index}>
               <SingleProduct product={this.props.product}>
                 <img src={product.gallery[0]} alt="img" />
                 <p>{product.name}</p>
-                <h4>{product.prices.amount}</h4>
+                <h4>
+                  {prices?.map((price, index) => {
+                    // console.log(price.currency.label);
+                    // {price.currency.label === "USD" ? "" : ""}
+                    return (
+                      <div key={index}>
+                        <span>{price.currency.symbol}</span>
+                        <span>{price.amount}</span>
+                      </div>
+                    );
+                  })}
+                </h4>
               </SingleProduct>
             </Link>
           );
