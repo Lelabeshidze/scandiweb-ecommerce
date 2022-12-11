@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 
 class CartComponent extends Component {
+ 
+
   render() {
-    const { cartItems } = this.props;
-    console.log(this.props)
+    const { cartItems } = this.props.cartItems;
+    console.log(this.cart);
+    console.log(cartItems, "CartItems");
     return (
       <div>
         {cartItems.length === 0 ? (

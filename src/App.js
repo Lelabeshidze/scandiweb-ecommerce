@@ -14,7 +14,7 @@ class App extends Component {
     console.log(this.props);
     return (
       <div>
-        <CartProvider>
+     
           <Routes>
             <Route path="/" element={<CategoryPage categoryName="all" />} />
             <Route path="/all" element={<Navigate to="/" />} />
@@ -35,7 +35,7 @@ class App extends Component {
             />
             <Route path="/cart" element={<Cart />} />
           </Routes>
-        </CartProvider>
+      
       </div>
     );
   }
