@@ -26,9 +26,9 @@ class TechComponent extends Component {
       return (
         <>
           <Header />
+          <Title>{data?.category?.name}</Title>
           <ProductContainer>
             {products.map((product, index) => {
-             
               return (
                 <Link to={`${product.id}/description`} key={index}>
                   <SingleProduct key={index}>
@@ -59,5 +59,9 @@ const ProductContainer = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 80px 40px;
   gap: 80px 40px;
+`;
+const Title = styled.h1`
+  margin-top: 40px;
+  text-transform: uppercase;
 `;
 export default withRouter(getData(TechComponent, GET_TECH_PRODUCTS));

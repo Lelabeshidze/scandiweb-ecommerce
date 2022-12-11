@@ -15,8 +15,9 @@ class Header extends Component {
     return (
       <HeaderContainer className="header">
         <Navigation {...this.props} />
-
-        <img src={Logo} alt="logo" />
+        <Link to="/">
+          <img src={Logo} alt="logo" />
+        </Link>
         <CartContext.Consumer>
           {(cartItems) => <ActionsComponent cartItems={cartItems} />}
         </CartContext.Consumer>

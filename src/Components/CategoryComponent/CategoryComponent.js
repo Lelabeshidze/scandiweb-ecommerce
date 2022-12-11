@@ -10,7 +10,7 @@ import ProductItem from "../ProductItem/ProductItem";
 class CategoryComponent extends Component {
   render() {
     const { data } = this.props;
-
+console.log(data)
     if (data) {
       if (!data.category)
         return <h1 className="error-message">Category not found</h1>;
@@ -18,7 +18,7 @@ class CategoryComponent extends Component {
       return (
         <>
           <Header />
-
+          <Title>All Products</Title>
           <ProductContainer>
             <ProductItem />
           </ProductContainer>
@@ -34,6 +34,10 @@ const ProductContainer = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 80px 40px;
   gap: 80px 40px;
+`;
+const Title = styled.h1`
+  margin-top: 40px;
+  text-transform: uppercase;
 `;
 
 export default withRouter(

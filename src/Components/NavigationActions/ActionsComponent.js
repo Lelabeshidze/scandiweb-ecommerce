@@ -18,9 +18,8 @@ class ActionsComponent extends Component {
   render() {
     const { data } = this.props;
 
-    const { cartItems } = this.props.cartItems;
+    const { cartItems, totalAmount } = this.props.cartItems;
 
-    const { totalAmount } = this.props.cartItems;
     console.log(totalAmount);
     return (
       <CurrenciesContainer className="actions">

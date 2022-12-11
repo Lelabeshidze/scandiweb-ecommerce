@@ -11,16 +11,16 @@ import ProductItem from "../ProductItem/ProductItem";
 class ClothesComponent extends Component {
   render() {
     const { data } = this.props;
-
+   
     if (data) {
       if (!data.category)
         return <h1 className="error-message">Category not found</h1>;
       const { products } = data.category;
-   
+
       return (
         <>
           <Header />
-
+          <Title>{data?.category?.name}</Title>
           <ProductContainer>
             {products.map((product, index) => {
               return (
@@ -53,5 +53,9 @@ const ProductContainer = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 80px 40px;
   gap: 80px 40px;
+`;
+const Title = styled.h1`
+  margin-top: 40px;
+  text-transform: uppercase;
 `;
 export default withRouter(getData(ClothesComponent, GET_CLOTHES_PRODUCTS));
