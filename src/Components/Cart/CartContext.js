@@ -34,6 +34,11 @@ export class CartProvider extends Component {
     const totalAmount = this.calculateTotalAmount(cartItems);
     this.setState({ totalAmount: totalAmount });
   };
+
+  removeFromCart = (product) => {
+    const cartItems = this.state.cartItems.slice();
+    this.setState({ cartItems: cartItems.filter((x) => x.id !== product.id) });
+  };
   calculateTotalAmount = (updatedCart) => {
     let totalAmount = 0;
     updatedCart.forEach((product) => {
@@ -46,13 +51,14 @@ export class CartProvider extends Component {
     const { cartItems, totalAmount } = this.state;
 
     const addToCart = this.addToCart;
-
+    const removeFromCart = this.removeFromCart;
     return (
       <CartContext.Provider
         value={{
           addToCart,
           cartItems,
           totalAmount,
+          removeFromCart,
         }}
       >
         {children}

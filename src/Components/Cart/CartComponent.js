@@ -5,8 +5,8 @@ import SingleProductComponent from "../ProductComponent/SingleProductComponent";
 
 class CartComponent extends Component {
   render() {
-    const { cartItems } = this.props.cartItems;
-
+    const { cartItems, addToCart, removeFromCart } = this.props.cartItems;
+    console.log(removeFromCart);
     return (
       <div>
         <Header />
@@ -38,6 +38,8 @@ class CartComponent extends Component {
                       );
                     })}
                   </div>
+                  <button onClick={() => removeFromCart(item)}>-</button>
+                  <button onClick={() => addToCart(item)}>+</button>
                 </SingleProduct>
               );
             })}
