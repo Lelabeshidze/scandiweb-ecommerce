@@ -37,7 +37,18 @@ export class CartProvider extends Component {
 
   removeFromCart = (product) => {
     const cartItems = this.state.cartItems.slice();
-    this.setState({ cartItems: cartItems.filter((x) => x.id !== product.id) });
+
+    cartItems.forEach((item) => {
+      if (item.id === product.id) {
+        item.count--;
+      }
+    });
+
+    this.setState({ cartItems });
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+
+    const totalAmount = this.calculateTotalAmount(cartItems);
+    this.setState({ totalAmount: totalAmount });
   };
   calculateTotalAmount = (updatedCart) => {
     let totalAmount = 0;
