@@ -52,8 +52,8 @@ const SingleProduct = styled.div`
   margin-top: 90px;
   img {
     width: 70%;
-
     object-fit: cover;
+   
   }
 `;
 const CartIcon = styled.div`

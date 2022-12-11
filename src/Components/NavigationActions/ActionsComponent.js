@@ -32,9 +32,11 @@ class ActionsComponent extends Component {
             return <option key={index}>{currency.symbol}</option>;
           })}
         </select>
+
+        <img src={Cart} alt="logo" />
+        <span>{totalAmount}</span>
         <Link to="/cart">
-          <img src={Cart} alt="logo" />
-          <span>{totalAmount}</span>
+          <button>View Bag</button>
         </Link>
       </CurrenciesContainer>
     );
