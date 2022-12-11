@@ -7,13 +7,15 @@ import { getData } from "../GraphQL/getData";
 import { GET_CATEGORIES, GET_CURRENCIES } from "../GraphQL/dataQueries";
 import Navigation from "./Navigation";
 import CurrenciesComponent from "../Components/Currencies/CurrenciesComponent";
+import { Link } from "react-router-dom";
 class Header extends Component {
   render() {
     return (
       <HeaderContainer className="header">
         <Navigation {...this.props} />
-        <img src={Logo} alt="logo" />
-
+        
+          <img src={Logo} alt="logo" />
+        
         <CurrenciesComponent />
       </HeaderContainer>
     );

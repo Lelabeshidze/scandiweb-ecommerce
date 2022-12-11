@@ -28,6 +28,7 @@ class TechComponent extends Component {
           <Header />
           <ProductContainer>
             {products.map((product, index) => {
+             
               return (
                 <Link to={`${product.id}/description`} key={index}>
                   <SingleProduct key={index}>

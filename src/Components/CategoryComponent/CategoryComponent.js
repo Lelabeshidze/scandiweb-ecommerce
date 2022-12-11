@@ -14,16 +14,13 @@ class CategoryComponent extends Component {
     if (data) {
       if (!data.category)
         return <h1 className="error-message">Category not found</h1>;
-      const { products } = data.category;
 
       return (
         <>
           <Header />
 
           <ProductContainer>
-            {products.map((product) => {
-              return <ProductItem key={product.id} product={product} />;
-            })}
+            <ProductItem />
           </ProductContainer>
         </>
       );

@@ -4,12 +4,15 @@ import { getProductById } from "../../GraphQL/getProduct";
 import { withRouter } from "../../Utils/withRouter";
 import ProductItem from "../ProductItem/ProductItem";
 import Header from "../../Layout/Header";
+import CartContext from "../Cart/CartContext";
 
 class SingleProductComponent extends Component {
+  static contextType = CartContext;
   render() {
     const { params } = this.props;
     const { data } = this.props;
-  
+    const { cartItems, addToCart } = this.context;
+    console.log(this.context);
     return (
       <div>
         <Header />
@@ -33,6 +36,7 @@ class SingleProductComponent extends Component {
             );
           })}
         </div>
+        <button onClick={() => addToCart(data?.product)}>Add to cart</button>
       </div>
     );
   }

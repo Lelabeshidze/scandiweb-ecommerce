@@ -16,7 +16,7 @@ class ClothesComponent extends Component {
       if (!data.category)
         return <h1 className="error-message">Category not found</h1>;
       const { products } = data.category;
-      console.log(products);
+   
       return (
         <>
           <Header />

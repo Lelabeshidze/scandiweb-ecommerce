@@ -3,6 +3,7 @@ import { GET_CURRENCIES } from "../../GraphQL/dataQueries";
 import { getData } from "../../GraphQL/getData";
 import Cart from "../../Assets/cart.svg";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 class CurrenciesComponent extends Component {
   constructor() {
     super();
@@ -16,7 +17,7 @@ class CurrenciesComponent extends Component {
 
   render() {
     const { data } = this.props;
-    console.log(this.state.currentCurrency);
+  
     return (
       <CurrenciesContainer className="actions">
         <select
@@ -28,7 +29,9 @@ class CurrenciesComponent extends Component {
             return <option key={index}>{currency.symbol}</option>;
           })}
         </select>
-        <img src={Cart} alt="logo" />
+        <Link to="/cart">
+          <img src={Cart} alt="logo" />
+        </Link>
       </CurrenciesContainer>
     );
   }
