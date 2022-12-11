@@ -2,7 +2,9 @@ import React, { Component, createContext } from "react";
 
 const CartContext = createContext(true);
 export class CartProvider extends Component {
-  cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart = localStorage.getItem("cart")
+    ? JSON.parse(localStorage.getItem("cart"))
+    : [];
   state = {
     cartItems: this.cart,
   };
@@ -11,7 +13,7 @@ export class CartProvider extends Component {
     const cartItems = this.state.cartItems.slice();
     let alreadyInCart = false;
     cartItems.forEach((item) => {
-      if (item.product?.id === product.id) {
+      if (item.id === product.id) {
         item.count++;
         alreadyInCart = true;
       }
