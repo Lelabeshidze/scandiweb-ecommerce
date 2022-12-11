@@ -4,7 +4,7 @@ import { getData } from "../../GraphQL/getData";
 import Cart from "../../Assets/cart.svg";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-class CurrenciesComponent extends Component {
+class ActionsComponent extends Component {
   constructor() {
     super();
     this.state = {
@@ -17,7 +17,11 @@ class CurrenciesComponent extends Component {
 
   render() {
     const { data } = this.props;
-  
+
+    const { cartItems } = this.props.cartItems;
+
+    const { totalAmount } = this.props.cartItems;
+    console.log(totalAmount);
     return (
       <CurrenciesContainer className="actions">
         <select
@@ -31,6 +35,7 @@ class CurrenciesComponent extends Component {
         </select>
         <Link to="/cart">
           <img src={Cart} alt="logo" />
+          <span>{totalAmount}</span>
         </Link>
       </CurrenciesContainer>
     );
@@ -42,4 +47,4 @@ const CurrenciesContainer = styled.div`
   }
 `;
 
-export default getData(CurrenciesComponent, GET_CURRENCIES);
+export default getData(ActionsComponent, GET_CURRENCIES);

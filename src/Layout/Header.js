@@ -6,17 +6,20 @@ import "../App.css";
 import { getData } from "../GraphQL/getData";
 import { GET_CATEGORIES, GET_CURRENCIES } from "../GraphQL/dataQueries";
 import Navigation from "./Navigation";
-import CurrenciesComponent from "../Components/Currencies/CurrenciesComponent";
+
 import { Link } from "react-router-dom";
+import ActionsComponent from "../Components/NavigationActions/ActionsComponent";
+import CartContext from "../Components/Cart/CartContext";
 class Header extends Component {
   render() {
     return (
       <HeaderContainer className="header">
         <Navigation {...this.props} />
-        
-          <img src={Logo} alt="logo" />
-        
-        <CurrenciesComponent />
+
+        <img src={Logo} alt="logo" />
+        <CartContext.Consumer>
+          {(cartItems) => <ActionsComponent cartItems={cartItems} />}
+        </CartContext.Consumer>
       </HeaderContainer>
     );
   }

@@ -12,7 +12,7 @@ class SingleProductComponent extends Component {
     const { params } = this.props;
     const { data } = this.props;
     const { cartItems, addToCart } = this.context;
-    console.log(this.context);
+   
     return (
       <div>
         <Header />

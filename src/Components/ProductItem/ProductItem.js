@@ -12,7 +12,7 @@ class ProductItem extends Component {
   render() {
     const { data } = this.props;
     const { products } = data.category;
-    console.log(data);
+  
     return (
       <>
         {products?.map((product, index) => {

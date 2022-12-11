@@ -1,12 +1,14 @@
 import React, { Component } from "react";
+import Header from "../../Layout/Header";
 import SingleProductComponent from "../ProductComponent/SingleProductComponent";
 
 class CartComponent extends Component {
   render() {
     const { cartItems } = this.props.cartItems;
-    console.log(cartItems, "CartItems");
+   
     return (
       <div>
+        <Header/>
         {cartItems.length === 0 ? (
           <div>Cart is empty</div>
         ) : (
