@@ -6,6 +6,7 @@ import ProductItem from "../ProductItem/ProductItem";
 import Header from "../../Layout/Header";
 import CartContext from "../Cart/CartContext";
 import styled from "styled-components";
+import DOMPurify from "dompurify";
 
 class SingleProductComponent extends Component {
   static contextType = CartContext;
@@ -26,7 +27,11 @@ class SingleProductComponent extends Component {
           </div>
           <div>
             <h3>{data?.product?.name}</h3>
-            <p>{data?.product?.description}</p>
+            <div
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(data?.product?.description),
+              }}
+            />
             {data?.product?.attributes.map((attribute, index) => {
               const { name, type, items } = attribute;
               return (
@@ -54,8 +59,8 @@ const SingleProduct = styled.div`
   justify-content: space-around;
   margin-top: 100px;
   img {
-    width:  fit-content;
-    height:511px;
+    width: fit-content;
+    height: 511px;
   }
 `;
 export default withRouter(getProductById(SingleProductComponent, GET_PRODUCT));
