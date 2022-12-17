@@ -21,9 +21,7 @@ class CategoryComponent extends Component {
           <Header />
           <Title>All Products</Title>
           <ProductContainer>
-            <CurrencyContext.Consumer>
-              {(currency) => <ProductItem currency={currency} />}
-            </CurrencyContext.Consumer>
+            <ProductItem />
           </ProductContainer>
         </>
       );

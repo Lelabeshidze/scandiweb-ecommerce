@@ -32,7 +32,7 @@ class ActionsComponent extends Component {
               <option
                 key={index}
                 value={currency.label}
-                onClick={this.onSelect(this.state.currentCurrency)}
+                // onClick={this.onSelect(this.state.currentCurrency)}
               >
                 {currency.label}
                 {currency.symbol}

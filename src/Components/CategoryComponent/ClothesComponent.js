@@ -5,13 +5,15 @@ import { GET_CLOTHES_PRODUCTS } from "../../GraphQL/dataQueries";
 import { getAllProducts } from "../../GraphQL/getAllCategory";
 import { getData } from "../../GraphQL/getData";
 import Header from "../../Layout/Header";
+import CurrencyContext from "../../Utils/CurrencyContext";
 import { withRouter } from "../../Utils/withRouter";
 import ProductItem from "../ProductItem/ProductItem";
 
 class ClothesComponent extends Component {
+  static contextType = CurrencyContext;
   render() {
     const { data } = this.props;
-   
+    const { selectCurrency } = this.context;
     if (data) {
       if (!data.category)
         return <h1 className="error-message">Category not found</h1>;
@@ -23,12 +25,34 @@ class ClothesComponent extends Component {
           <Title>{data?.category?.name}</Title>
           <ProductContainer>
             {products.map((product, index) => {
+              const { prices } = product;
               return (
                 <Link to={`${product.id}/description`} key={index}>
                   <SingleProduct key={index}>
                     <img src={product.gallery[0]} alt="img" />
                     <p>{product.name}</p>
-                    <h4>{product.prices.amount}</h4>
+                    <h4>
+                      {prices?.map((price, index) => {
+                        return (
+                          <div key={index}>
+                            {price.currency.label === selectCurrency ? (
+                              <>
+                                <span>{price.currency.symbol}</span>
+                                <span>{price.amount}</span>
+                              </>
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </h4>
+                    {!selectCurrency && (
+                      <>
+                        <span>{prices[0].currency.symbol}</span>
+                        <span>{prices[0].amount}</span>
+                      </>
+                    )}
                   </SingleProduct>
                 </Link>
               );

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Header from "../../Layout/Header";
-import SingleProductComponent from "../ProductComponent/SingleProductComponent";
 
 class CartComponent extends Component {
   render() {
