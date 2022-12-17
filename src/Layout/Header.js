@@ -9,7 +9,7 @@ import Navigation from "./Navigation";
 
 import { Link } from "react-router-dom";
 import ActionsComponent from "../Components/NavigationActions/ActionsComponent";
-import CartContext from "../Components/Cart/CartContext";
+import CartContext from "../Utils/CartContext";
 class Header extends Component {
   render() {
     return (

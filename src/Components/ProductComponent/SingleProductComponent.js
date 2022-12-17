@@ -4,7 +4,7 @@ import { getProductById } from "../../GraphQL/getProduct";
 import { withRouter } from "../../Utils/withRouter";
 import ProductItem from "../ProductItem/ProductItem";
 import Header from "../../Layout/Header";
-import CartContext from "../Cart/CartContext";
+import CartContext from "../../Utils/CartContext";
 import styled from "styled-components";
 import DOMPurify from "dompurify";
 

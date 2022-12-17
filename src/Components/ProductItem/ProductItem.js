@@ -7,12 +7,16 @@ import styled from "styled-components";
 import { withRouter } from "../../Utils/withRouter";
 import { Link } from "react-router-dom";
 import Cart from "../../Assets/Circle Icon.svg";
+import CurrencyContext from "../../Utils/CurrencyContext.js";
 
 class ProductItem extends Component {
+  static contextType = CurrencyContext;
   render() {
     const { data } = this.props;
+    const { selectCurrency } = this.context;
+    console.log(selectCurrency);
     const { products } = data.category;
-  
+
     return (
       <>
         {products?.map((product, index) => {
@@ -30,8 +34,14 @@ class ProductItem extends Component {
                   {prices?.map((price, index) => {
                     return (
                       <div key={index}>
-                        <span>{price.currency.symbol}</span>
-                        <span>{price.amount}</span>
+                        {price.currency.label === selectCurrency ? (
+                          <>
+                            <span>{price.currency.symbol}</span>
+                            <span>{price.amount}</span>
+                          </>
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     );
                   })}
@@ -53,7 +63,6 @@ const SingleProduct = styled.div`
   img {
     width: 70%;
     object-fit: cover;
-   
   }
 `;
 const CartIcon = styled.div`

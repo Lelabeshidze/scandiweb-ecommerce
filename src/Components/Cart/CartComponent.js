@@ -6,7 +6,7 @@ import SingleProductComponent from "../ProductComponent/SingleProductComponent";
 class CartComponent extends Component {
   render() {
     const { cartItems, addToCart, removeFromCart } = this.props.cartItems;
-    console.log(removeFromCart);
+
     return (
       <div>
         <Header />
@@ -44,29 +44,6 @@ class CartComponent extends Component {
               ) : (
                 ""
               );
-              // <SingleProduct key={index}>
-              //   <img src={item.gallery[0]} alt="photo" />
-              //   <p>{item.count}</p>
-              //   <div>
-              //     {attributes.map((attribute, index) => {
-              //       const { name, type, items } = attribute;
-              //       return (
-              //         <div key={index}>
-              //           <h3>{name}</h3>
-              //           <div>
-              //             {items.map((item) => {
-              //               return (
-              //                 <div key={item.id}>{item.displayValue}</div>
-              //               );
-              //             })}
-              //           </div>
-              //         </div>
-              //       );
-              //     })}
-              //   </div>
-              //   <button onClick={() => removeFromCart(item)}>-</button>
-              //   <button onClick={() => addToCart(item)}>+</button>
-              // </SingleProduct>
             })}
           </div>
         )}

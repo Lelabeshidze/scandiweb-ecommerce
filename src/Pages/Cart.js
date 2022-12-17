@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import CartComponent from "../Components/Cart/CartComponent";
-import CartContext from "../Components/Cart/CartContext";
+import CartContext from "../Utils/CartContext";
+import CurrencyContext from "../Utils/CurrencyContext";
 
 class Cart extends Component {
   constructor(props) {
@@ -10,9 +11,15 @@ class Cart extends Component {
   render() {
     return (
       <div>
-        <CartContext.Consumer>
-          {(cartItems) => <CartComponent cartItems={cartItems} />}
-        </CartContext.Consumer>
+        <CurrencyContext.Consumer>
+          {(currency) => (
+            <CartContext.Consumer>
+              {(cartItems) => (
+                <CartComponent currency={currency} cartItems={cartItems} />
+              )}
+            </CartContext.Consumer>
+          )}
+        </CurrencyContext.Consumer>
       </div>
     );
   }
