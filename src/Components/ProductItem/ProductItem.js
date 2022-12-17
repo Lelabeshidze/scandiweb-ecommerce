@@ -46,6 +46,12 @@ class ProductItem extends Component {
                     );
                   })}
                 </h4>
+                {!selectCurrency && (
+                  <>
+                    <span>{prices[0].currency.symbol}</span>
+                    <span>{prices[0].amount}</span>
+                  </>
+                )}
               </SingleProduct>
             </Link>
           );
