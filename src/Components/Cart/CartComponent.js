@@ -5,13 +5,11 @@ import Header from "../../Layout/Header";
 class CartComponent extends Component {
   render() {
     const { cartItems, addToCart, removeFromCart } = this.props.cartItems;
-
+    console.log(cartItems);
     return (
       <div>
         <Header />
-        {cartItems.length === 0 ? (
-          <div>Cart is empty</div>
-        ) : (
+        {cartItems.length > 0 ? (
           <div>
             {cartItems?.map((item, index) => {
               const { attributes } = item;
@@ -45,6 +43,8 @@ class CartComponent extends Component {
               );
             })}
           </div>
+        ) : (
+          <div>The cart is empty</div>
         )}
       </div>
     );

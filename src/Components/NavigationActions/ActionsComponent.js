@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { GET_CURRENCIES } from "../../GraphQL/dataQueries";
 import { getData } from "../../GraphQL/getData";
-import Cart from "../../Assets/cart.svg";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import CurrencyContext from "../../Utils/CurrencyContext";
+import CartOverlayPage from "../../Pages/CartOverlayPage";
 class ActionsComponent extends Component {
   static contextType = CurrencyContext;
   constructor() {
@@ -41,11 +40,7 @@ class ActionsComponent extends Component {
           })}
         </select>
 
-        <img src={Cart} alt="logo" />
-        <span>{totalAmount}</span>
-        <Link to="/cart">
-          <button>View Bag</button>
-        </Link>
+        <CartOverlayPage />
       </CurrenciesContainer>
     );
   }
