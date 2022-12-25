@@ -8,11 +8,13 @@ export class CartProvider extends Component {
   state = {
     cartItems: this.cart,
     totalAmount: 0,
+   
   };
 
   componentDidMount() {
     const totalAmount = this.calculateTotalAmount(this.cart);
     this.setState({ totalAmount: totalAmount });
+  
   }
   addToCart = (product) => {
     const cartItems = this.state.cartItems.slice();
@@ -33,6 +35,9 @@ export class CartProvider extends Component {
 
     const totalAmount = this.calculateTotalAmount(cartItems);
     this.setState({ totalAmount: totalAmount });
+   
+ 
+  
   };
 
   removeFromCart = (product) => {
@@ -49,6 +54,7 @@ export class CartProvider extends Component {
 
     const totalAmount = this.calculateTotalAmount(cartItems);
     this.setState({ totalAmount: totalAmount });
+  
   };
   calculateTotalAmount = (updatedCart) => {
     let totalAmount = 0;
@@ -57,6 +63,9 @@ export class CartProvider extends Component {
     });
     return totalAmount;
   };
+
+  
+
   render() {
     const { children } = this.props;
     const { cartItems, totalAmount } = this.state;

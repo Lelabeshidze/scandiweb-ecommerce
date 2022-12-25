@@ -40,7 +40,7 @@ class CartOverlayComponent extends Component {
     const { cartItems, addToCart, removeFromCart, totalAmount } =
       this.props.cartItems;
     const { selectCurrency } = this.context;
-    console.log(this.modalRef);
+
     return (
       <Container ref={this.modalRef}>
         <img src={Cart} alt="logo" onClick={this.handleClick} />
@@ -103,9 +103,13 @@ class CartOverlayComponent extends Component {
                     ""
                   );
                 })}
+
                 <div>
                   <Link to="/cart">
                     <button>View Bag</button>
+                  </Link>
+                  <Link to="/">
+                    <button>CHECK OUT</button>
                   </Link>
                 </div>
               </div>
@@ -121,6 +125,7 @@ class CartOverlayComponent extends Component {
 
 const Container = styled.div`
   position: relative;
+
   width: 100%;
   height: 100%;
 `;

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { GET_PRODUCT } from "../../GraphQL/dataQueries";
 import { getProductById } from "../../GraphQL/getProduct";
 import { withRouter } from "../../Utils/withRouter";
-import ProductItem from "../ProductItem/ProductItem";
+
 import Header from "../../Layout/Header";
 import CartContext from "../../Utils/CartContext";
 import styled from "styled-components";
@@ -10,11 +10,20 @@ import DOMPurify from "dompurify";
 
 class SingleProductComponent extends Component {
   static contextType = CartContext;
+  constructor() {
+    super();
+    this.state = {
+      setAsstribute: null,
+    };
+  }
+
+  handleAttribute = (e) => {
+    this.setState({ setAsstribute: e.target.value });
+  };
   render() {
-    const { params } = this.props;
     const { data } = this.props;
     const { cartItems, addToCart } = this.context;
-
+    console.log(this.state.setAsstribute);
     return (
       <div>
         <Header />
@@ -34,20 +43,71 @@ class SingleProductComponent extends Component {
             />
             {data?.product?.attributes.map((attribute, index) => {
               const { name, type, items } = attribute;
+
               return (
                 <div key={index}>
                   <h3>{name}</h3>
-                  <div>
-                    {items.map((item) => {
-                      return <div key={item.id}>{item.displayValue}</div>;
-                    })}
-                  </div>
+                  {attribute.name === "Color" ? (
+                    <div style={{ display: "flex" }}>
+                      {items.map((item) => {
+                        return (
+                          <option
+                            key={item.id}
+                            name="attribute"
+                            value={`${item.value}`}
+                            style={{
+                              backgroundColor: `${item.value}`,
+                              width: "30px",
+                              height: "30px",
+                              display: "flex",
+                              borderStyle: "groove",
+                              margin: "5px",
+                              cursor: "pointer",
+                            }}
+                            onClick={this.handleAttribute.bind(this)}
+                          ></option>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div style={{ display: "flex" }}>
+                      {items.map((item) => {
+                        return (
+                          <option
+                            name="attribute"
+                            value={`${item.value}`}
+                            key={item.id}
+                            style={{
+                              textAlign: "center",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: "45px",
+                              height: "40px",
+                              borderStyle: "groove",
+                              margin: "5px",
+                              cursor: "pointer",
+                            }}
+                            onClick={this.handleAttribute.bind(this)}
+                          >
+                            {item.value}
+                          </option>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               );
             })}
-            <button onClick={() => addToCart(data?.product)}>
-              Add to cart
-            </button>
+            {!this.state.setAsstribute ? (
+              <ButtonDisabled onClick={() => addToCart(data?.product)}>
+                Select Attribute
+              </ButtonDisabled>
+            ) : (
+              <Button onClick={() => addToCart(data?.product)}>
+                Add to cart
+              </Button>
+            )}
           </div>
         </SingleProduct>
       </div>
@@ -62,5 +122,21 @@ const SingleProduct = styled.div`
     width: fit-content;
     height: 511px;
   }
+`;
+const Button = styled.button`
+  width: 200px;
+  height: 50px;
+  background-color: #5ece7b;
+  color: white;
+  border: none;
+  cursor: pointer;
+`;
+const ButtonDisabled = styled.button`
+  width: 200px;
+  height: 50px;
+  background-color: grey;
+  color: white;
+  border: none;
+  cursor: pointer;
 `;
 export default withRouter(getProductById(SingleProductComponent, GET_PRODUCT));

@@ -14,7 +14,7 @@ class ProductItem extends Component {
   render() {
     const { data } = this.props;
     const { selectCurrency } = this.context;
-    console.log(selectCurrency);
+   
     const { products } = data.category;
 
     return (

@@ -5,7 +5,7 @@ import Header from "../../Layout/Header";
 class CartComponent extends Component {
   render() {
     const { cartItems, addToCart, removeFromCart } = this.props.cartItems;
-    console.log(cartItems);
+  
     return (
       <div>
         <Header />
