@@ -13,17 +13,21 @@ class SingleProductComponent extends Component {
   constructor() {
     super();
     this.state = {
-      setAsstribute: null,
+      setAsstribute: [],
     };
   }
 
   handleAttribute = (e) => {
-    this.setState({ setAsstribute: e.target.value });
+    this.setState({
+      setAsstribute: [...this.state.setAsstribute, e.target.value],
+    });
   };
   render() {
     const { data } = this.props;
     const { cartItems, addToCart } = this.context;
-    console.log(this.state.setAsstribute);
+    console.log(
+      data?.product?.attributes.map((item) => console.log(item.type))
+    );
     return (
       <div>
         <Header />
@@ -99,8 +103,8 @@ class SingleProductComponent extends Component {
                 </div>
               );
             })}
-            {!this.state.setAsstribute ? (
-              <ButtonDisabled onClick={() => addToCart(data?.product)}>
+            {this.state.setAsstribute.length === 0 ? (
+              <ButtonDisabled onClick={() => addToCart(data?.product)} disabled>
                 Select Attribute
               </ButtonDisabled>
             ) : (

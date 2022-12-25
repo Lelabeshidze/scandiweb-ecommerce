@@ -11,9 +11,14 @@ class CartOverlayComponent extends Component {
     this.state = {
       showModal: false,
       menuOpen: false,
+      setAsstribute: [],
     };
   }
-
+  handleAttribute = (e) => {
+    this.setState({
+      setAsstribute: [...this.state.setAsstribute, e.target.value],
+    });
+  };
   modalRef = createRef();
 
   handleClick = (event) => {
@@ -61,11 +66,59 @@ class CartOverlayComponent extends Component {
                           return (
                             <div key={index}>
                               <h3>{name}</h3>
-                              <div>
-                                {items.map((item) => {
-                                  return <div key={item.id}>{item.value}</div>;
-                                })}
-                              </div>
+                              {attribute.name === "Color" ? (
+                                <div style={{ display: "flex" }}>
+                                  {items.map((item) => {
+                                    return (
+                                      <option
+                                        key={item.id}
+                                        name="attribute"
+                                        value={`${item.value}`}
+                                        style={{
+                                          backgroundColor: `${item.value}`,
+                                          width: "20px",
+                                          height: "20px",
+                                          display: "flex",
+                                          borderStyle: "groove",
+                                          margin: "5px",
+                                          cursor: "pointer",
+                                        }}
+                                        onClick={this.handleAttribute.bind(
+                                          this
+                                        )}
+                                      ></option>
+                                    );
+                                  })}
+                                </div>
+                              ) : (
+                                <div style={{ display: "flex" }}>
+                                  {items.map((item) => {
+                                    return (
+                                      <option
+                                        name="attribute"
+                                        value={`${item.value}`}
+                                        key={item.id}
+                                        style={{
+                                          textAlign: "center",
+                                          display: "flex",
+                                          justifyContent: "center",
+                                          alignItems: "center",
+                                          width: "40px",
+                                          height: "20px",
+                                          borderStyle: "groove",
+                                          margin: "5px",
+                                          cursor: "pointer",
+                                        }}
+                                        onClick={this.handleAttribute.bind(
+                                          this
+                                        )}
+                                      >
+                                        {item.value}
+                                      </option>
+                                    );
+                                  })}
+                                </div>
+                              )}
                             </div>
                           );
                         })}
@@ -106,10 +159,10 @@ class CartOverlayComponent extends Component {
 
                 <div>
                   <Link to="/cart">
-                    <button>View Bag</button>
+                    <ViewBag>View Bag</ViewBag>
                   </Link>
                   <Link to="/">
-                    <button>CHECK OUT</button>
+                    <CheckOut>CHECK OUT</CheckOut>
                   </Link>
                 </div>
               </div>
@@ -125,14 +178,13 @@ class CartOverlayComponent extends Component {
 
 const Container = styled.div`
   position: relative;
-
   width: 100%;
   height: 100%;
 `;
 const CartContainer = styled.div`
   position: absolute;
   z-index: 1;
-  width: 300px;
+  width: 400px;
   right: 10px;
   background-color: white;
 `;
@@ -156,5 +208,21 @@ const Button = styled.button`
   height: 30px;
   width: 30px;
   text-align: center;
+`;
+const CheckOut = styled.button`
+  width: 140px;
+  height: 40px;
+  background-color: #5ece7b;
+  color: white;
+  border: none;
+  cursor: pointer;
+`;
+const ViewBag = styled.button`
+  width: 140px;
+  height: 40px;
+  background-color: white;
+  border: solid 1px;
+  cursor: pointer;
+  margin: 5px;
 `;
 export default CartOverlayComponent;
