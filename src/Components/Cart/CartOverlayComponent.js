@@ -1,9 +1,26 @@
 import React, { Component, createRef } from "react";
+import reactDom from "react-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Cart from "../../Assets/cart.svg";
+import CartLogo from "../../Assets/cart.svg";
 import CurrencyContext from "../../Utils/CurrencyContext";
-
+import Cart from "../../Pages/Cart";
+class Overlay extends React.Component {
+  render() {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          top: "79px",
+          width: "100%",
+          height: " 100%",
+          background: "rgba(57, 55, 72, 0.22)",
+          zIndex: "5",
+        }}
+      ></div>
+    );
+  }
+}
 class CartOverlayComponent extends Component {
   static contextType = CurrencyContext;
   constructor() {
@@ -47,14 +64,18 @@ class CartOverlayComponent extends Component {
     const { cartItems, addToCart, removeFromCart, totalAmount } =
       this.props.cartItems;
     const { selectCurrency } = this.context;
-
+    const portalTarget = document.getElementById("overlays");
     return (
-      <Container ref={this.modalRef}>
-        <>
-          <img src={Cart} alt="logo" onClick={this.handleClick} />
-        </>
-        {this.state.showModal && (
-          <Modal>
+      <>
+        {" "}
+        {this.state.showModal &&
+          reactDom.createPortal(<Overlay />, portalTarget)}
+        <Container ref={this.modalRef}>
+          <>
+            <img src={CartLogo} alt="logo" onClick={this.handleClick} />
+          </>
+
+          {this.state.showModal && (
             <CartContainer>
               <CartContent>
                 <h3>My bag: {totalAmount} items</h3>
@@ -191,9 +212,9 @@ class CartOverlayComponent extends Component {
                 )}
               </CartContent>
             </CartContainer>
-          </Modal>
-        )}
-      </Container>
+          )}
+        </Container>
+      </>
     );
   }
 }
@@ -203,15 +224,9 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 `;
-const Modal = styled.div`
-  width: 2000px;
-  height: 2000px;
-  position: absolute;
-  z-index: 1;
-  right: 0px;
-  background: rgba(57, 55, 72, 0.3);
-`;
+
 const CartContainer = styled.div`
+  display: block;
   position: absolute;
   z-index: 2;
   width: 400px;
@@ -223,8 +238,10 @@ const CartContainer = styled.div`
 `;
 const CartContent = styled.div`
   width: 100%;
+  background-color: white;
 `;
 const SingleProduct = styled.div`
+  background-color: white;
   width: 100%;
   margin-top: 50px;
   display: flex;

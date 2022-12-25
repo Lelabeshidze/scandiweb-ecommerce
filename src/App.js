@@ -11,7 +11,7 @@ class App extends Component {
     const { data } = this.props;
 
     return (
-      <div>
+      <div >
         <Routes>
           <Route path="/" element={<CategoryPage categoryName="all" />} />
           <Route path="/all" element={<Navigate to="/" />} />
