@@ -34,6 +34,8 @@ class CartOverlayComponent extends Component {
 
   closeMenu = (event) => {
     if (this.modalRef.current && this.modalRef.current.contains(event.target)) {
+      console.log(this.modalRef.current);
+      console.log(event.target);
       return;
     }
     this.setState({ showModal: false }, () => {
@@ -48,128 +50,148 @@ class CartOverlayComponent extends Component {
 
     return (
       <Container ref={this.modalRef}>
-        <img src={Cart} alt="logo" onClick={this.handleClick} />
+        <>
+          <img src={Cart} alt="logo" onClick={this.handleClick} />
+        </>
         {this.state.showModal && (
-          <CartContainer>
-            <p>My bag: {totalAmount} items</p>
-            {cartItems.length > 0 ? (
-              <div>
-                {cartItems?.map((item, index) => {
-                  const { attributes } = item;
-                  const { prices } = item;
-                  return item.count > 0 ? (
-                    <SingleProduct key={index}>
-                      <div>
-                        {attributes.map((attribute, index) => {
-                          const { name, type, items } = attribute;
+          <Modal>
+            <CartContainer>
+              <CartContent>
+                <h3>My bag: {totalAmount} items</h3>
+                {cartItems.length > 0 ? (
+                  <div>
+                    {cartItems?.map((item, index) => {
+                      const { attributes } = item;
+                      const { prices } = item;
+                      const { name } = item;
+                      return item.count > 0 ? (
+                        <SingleProduct key={index}>
+                          <div>
+                            <p>{name}</p>
+                            <h4>
+                              {prices?.map((price, index) => {
+                                return (
+                                  <div key={index}>
+                                    {price.currency.label === selectCurrency ? (
+                                      <>
+                                        <span>{price.currency.symbol}</span>
+                                        <span>{price.amount}</span>
+                                      </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </h4>
+                            {!selectCurrency && (
+                              <>
+                                <span>{prices[0].currency.symbol}</span>
+                                <span>{prices[0].amount}</span>
+                              </>
+                            )}
+                            <div>
+                              {attributes.map((attribute, index) => {
+                                const { name, type, items } = attribute;
 
-                          return (
-                            <div key={index}>
-                              <h3>{name}</h3>
-                              {attribute.name === "Color" ? (
-                                <div style={{ display: "flex" }}>
-                                  {items.map((item) => {
-                                    return (
-                                      <option
-                                        key={item.id}
-                                        name="attribute"
-                                        value={`${item.value}`}
-                                        style={{
-                                          backgroundColor: `${item.value}`,
-                                          width: "20px",
-                                          height: "20px",
-                                          display: "flex",
-                                          borderStyle: "groove",
-                                          margin: "5px",
-                                          cursor: "pointer",
-                                        }}
-                                        onClick={this.handleAttribute.bind(
-                                          this
-                                        )}
-                                      ></option>
-                                    );
-                                  })}
-                                </div>
-                              ) : (
-                                <div style={{ display: "flex" }}>
-                                  {items.map((item) => {
-                                    return (
-                                      <option
-                                        name="attribute"
-                                        value={`${item.value}`}
-                                        key={item.id}
-                                        style={{
-                                          textAlign: "center",
-                                          display: "flex",
-                                          justifyContent: "center",
-                                          alignItems: "center",
-                                          width: "40px",
-                                          height: "20px",
-                                          borderStyle: "groove",
-                                          margin: "5px",
-                                          cursor: "pointer",
-                                        }}
-                                        onClick={this.handleAttribute.bind(
-                                          this
-                                        )}
-                                      >
-                                        {item.value}
-                                      </option>
-                                    );
-                                  })}
-                                </div>
-                              )}
+                                return (
+                                  <div key={index}>
+                                    <h3>{name}</h3>
+                                    {attribute.name === "Color" ? (
+                                      <div style={{ display: "flex" }}>
+                                        {items.map((item) => {
+                                          return (
+                                            <option
+                                              key={item.id}
+                                              name="attribute"
+                                              value={`${item.value}`}
+                                              style={{
+                                                backgroundColor: `${item.value}`,
+                                                width: "20px",
+                                                height: "20px",
+                                                display: "flex",
+                                                borderStyle: "groove",
+                                                margin: "5px",
+                                                cursor: "pointer",
+                                              }}
+                                              onClick={this.handleAttribute.bind(
+                                                this
+                                              )}
+                                            ></option>
+                                          );
+                                        })}
+                                      </div>
+                                    ) : (
+                                      <div style={{ display: "flex" }}>
+                                        {items.map((item) => {
+                                          return (
+                                            <option
+                                              name="attribute"
+                                              value={`${item.value}`}
+                                              key={item.id}
+                                              style={{
+                                                textAlign: "center",
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                width: "40px",
+                                                height: "20px",
+                                                borderStyle: "groove",
+                                                margin: "5px",
+                                                cursor: "pointer",
+                                              }}
+                                              onClick={this.handleAttribute.bind(
+                                                this
+                                              )}
+                                            >
+                                              {item.value}
+                                            </option>
+                                          );
+                                        })}
+                                      </div>
+                                    )}
+                                  </div>
+                                );
+                              })}
                             </div>
-                          );
-                        })}
-                        <h4>
-                          {prices?.map((price, index) => {
-                            return (
-                              <div key={index}>
-                                {price.currency.label === selectCurrency ? (
-                                  <>
-                                    <span>{price.currency.symbol}</span>
-                                    <span>{price.amount}</span>
-                                  </>
-                                ) : (
-                                  <></>
-                                )}
-                              </div>
-                            );
-                          })}
-                        </h4>
-                        {!selectCurrency && (
-                          <>
-                            <span>{prices[0].currency.symbol}</span>
-                            <span>{prices[0].amount}</span>
-                          </>
-                        )}
-                      </div>
-                      <Actions>
-                        <Button onClick={() => addToCart(item)}>+</Button>
-                        <p>{item.count}</p>
-                        <Button onClick={() => removeFromCart(item)}>-</Button>
-                      </Actions>
-                      <img src={item.gallery[0]} alt="photo" />
-                    </SingleProduct>
-                  ) : (
-                    ""
-                  );
-                })}
+                          </div>
+                          <Actions>
+                            <Button onClick={() => addToCart(item)}>+</Button>
+                            <p>{item.count}</p>
+                            <Button onClick={() => removeFromCart(item)}>
+                              -
+                            </Button>
+                          </Actions>
+                          <div>
+                            <img src={item.gallery[0]} alt="photo" />
+                          </div>
+                        </SingleProduct>
+                      ) : (
+                        ""
+                      );
+                    })}
 
-                <div>
-                  <Link to="/cart">
-                    <ViewBag>View Bag</ViewBag>
-                  </Link>
-                  <Link to="/">
-                    <CheckOut>CHECK OUT</CheckOut>
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              <div>The cart is empty</div>
-            )}
-          </CartContainer>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Link to="/cart">
+                        <ViewBag>View Bag</ViewBag>
+                      </Link>
+                      <Link to="/">
+                        <CheckOut>CHECK OUT</CheckOut>
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <div>The cart is empty</div>
+                )}
+              </CartContent>
+            </CartContainer>
+          </Modal>
         )}
       </Container>
     );
@@ -181,21 +203,35 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 `;
-const CartContainer = styled.div`
+const Modal = styled.div`
+  width: 2000px;
+  height: 2000px;
   position: absolute;
   z-index: 1;
+  right: 0px;
+  background: rgba(57, 55, 72, 0.3);
+`;
+const CartContainer = styled.div`
+  position: absolute;
+  z-index: 2;
   width: 400px;
-  right: 10px;
+  right: 20px;
   background-color: white;
+  h3 {
+    margin-top: 20px;
+  }
+`;
+const CartContent = styled.div`
+  width: 100%;
 `;
 const SingleProduct = styled.div`
   width: 100%;
   margin-top: 50px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   img {
-    width: 50%;
-    object-fit: cover;
+    width: 70%;
+    object-fit: contain;
   }
 `;
 const Actions = styled.div`

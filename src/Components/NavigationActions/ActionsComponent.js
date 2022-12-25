@@ -28,18 +28,13 @@ class ActionsComponent extends Component {
         <select name="currency" onChange={this.onSelectChange.bind(this)}>
           {data?.currencies?.map((currency, index) => {
             return (
-              <option
-                key={index}
-                value={currency.label}
-                
-              >
+              <option key={index} value={currency.label}>
                 {currency.label}
                 {currency.symbol}
               </option>
             );
           })}
         </select>
-
         <CartOverlayPage />
       </CurrenciesContainer>
     );
