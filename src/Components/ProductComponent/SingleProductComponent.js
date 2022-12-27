@@ -28,6 +28,9 @@ class SingleProductComponent extends Component {
     console.log(
       data?.product?.attributes.map((item) => console.log(item.type))
     );
+    const { setAsstribute, handleAttribute } = this.props;
+
+    console.log(this.state.setAsstribute);
     return (
       <div>
         <Header />
@@ -123,8 +126,9 @@ const SingleProduct = styled.div`
   justify-content: space-around;
   margin-top: 100px;
   img {
-    width: fit-content;
-    height: 511px;
+    width: 100%;
+  height: 330px;
+  object-fit: cover;
   }
 `;
 const Button = styled.button`

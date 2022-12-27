@@ -35,10 +35,10 @@ class ProductItem extends Component {
                     return (
                       <div key={index}>
                         {price.currency.label === selectCurrency ? (
-                          <>
+                          <div style={{ display: "inline" }}>
                             <span>{price.currency.symbol}</span>
                             <span>{price.amount}</span>
-                          </>
+                          </div>
                         ) : (
                           <></>
                         )}
@@ -47,10 +47,10 @@ class ProductItem extends Component {
                   })}
                 </h4>
                 {!selectCurrency && (
-                  <>
+                  <div style={{ display: "inline" }}>
                     <span>{prices[0].currency.symbol}</span>
                     <span>{prices[0].amount}</span>
-                  </>
+                  </div>
                 )}
               </SingleProduct>
             </Link>
@@ -65,17 +65,35 @@ const SingleProduct = styled.div`
   position: relative;
   max-width: 700px;
   width: 100%;
-  margin-top: 90px;
+  display: flex;
+  flex-direction: column;
   img {
-    width: 70%;
-   2 object-fit: contain;
+    width: 95%;
+    height: 330px;
+    object-fit: cover;
+    align-self: center;
+    align-self: center;
+  }
+  h4 {
+    margin-top: 10px;
+  }
+  p {
+    margin-top: 20px;
+  }
+  &&:hover {
+    transition: all 300ms ease;
+    box-shadow: 0 2rem 2rem 2rem rgba(132, 139, 200, 0.18);
   }
 `;
 const CartIcon = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 75%;
-  transform: translate(-50%, -50%);
+  img {
+    position: absolute;
+    top: 80%;
+    left: 90%;
+    width: 60px;
+    height: 60px;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export default getAllProducts(ProductItem, GET_PRODUCTS_BY_CATEGORIES);

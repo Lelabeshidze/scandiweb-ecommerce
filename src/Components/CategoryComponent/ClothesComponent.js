@@ -68,7 +68,9 @@ const SingleProduct = styled.div`
   width: 100%;
   margin-top: 90px;
   img {
-    width: 80%;
+    width: 100%;
+    height: 330px;
+    object-fit: cover;
   }
 `;
 const ProductContainer = styled.div`

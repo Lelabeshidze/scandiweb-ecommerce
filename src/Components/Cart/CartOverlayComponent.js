@@ -68,8 +68,10 @@ class CartOverlayComponent extends Component {
     return (
       <>
         {" "}
-        {this.state.showModal &&
-          reactDom.createPortal(<Overlay />, portalTarget)}
+        <>
+          {this.state.showModal &&
+            reactDom.createPortal(<Overlay />, portalTarget)}
+        </>
         <Container ref={this.modalRef}>
           <>
             <img src={CartLogo} alt="logo" onClick={this.handleClick} />
@@ -220,7 +222,7 @@ class CartOverlayComponent extends Component {
 }
 
 const Container = styled.div`
-  position: relative;
+  // position: relative;
   width: 100%;
   height: 100%;
 `;
@@ -237,8 +239,10 @@ const CartContainer = styled.div`
   }
 `;
 const CartContent = styled.div`
+  position: absolute;
   width: 100%;
   background-color: white;
+  z-index: 1;
 `;
 const SingleProduct = styled.div`
   background-color: white;
@@ -250,6 +254,7 @@ const SingleProduct = styled.div`
     width: 70%;
     object-fit: contain;
   }
+  z-index: 1;
 `;
 const Actions = styled.div`
   display: flex;
