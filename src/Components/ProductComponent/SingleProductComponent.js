@@ -13,33 +13,52 @@ class SingleProductComponent extends Component {
   constructor() {
     super();
     this.state = {
-      setAsstribute: [],
+      setAttribute: [],
+      setPicture: [],
     };
   }
 
   handleAttribute = (e) => {
     this.setState({
-      setAsstribute: [...this.state.setAsstribute, e.target.value],
+      setAttribute: [...this.state.setAttribute, e.target.value],
     });
   };
+  handlePicture = (e) => {
+    this.setState({ setPicture: e });
+    console.log(this.state.setPicture);
+  };
+
   render() {
     const { data } = this.props;
     const { cartItems, addToCart } = this.context;
-    console.log(
-      data?.product?.attributes.map((item) => console.log(item.type))
-    );
-    const { setAsstribute, handleAttribute } = this.props;
-
-    console.log(this.state.setAsstribute);
+    // console.log(
+    //   data?.product?.attributes.map((item) => console.log(item.type))
+    // );
+    const { setAttribute, handleAttribute } = this.props;
+    // console.log(this.state.setPicture);
     return (
       <div>
         <Header />
         <SingleProduct>
           <div>
-            <img src={data?.product?.gallery[0]} alt="picture" />
-            <img src={data?.product?.gallery[1]} alt="picture" />
-            <img src={data?.product?.gallery[2]} alt="picture" />
-            <img src={data?.product?.gallery[3]} alt="picture" />
+            <ul>
+              {data?.product?.gallery.map((imageUrl, index) => {
+                // console.log(imageUrl);
+                return (
+                  <li
+                    key={index}
+                    name="picture"
+                    value={imageUrl}
+                    onClick={() => this.handlePicture(imageUrl)}
+                  >
+                    <img src={imageUrl} alt={data?.product?.name} />
+                  </li>
+                );
+              })}
+            </ul>
+            <div>
+              <img src={this.state.setPicture} alt="product" />
+            </div>
           </div>
           <div>
             <h3>{data?.product?.name}</h3>
@@ -106,7 +125,7 @@ class SingleProductComponent extends Component {
                 </div>
               );
             })}
-            {this.state.setAsstribute.length === 0 ? (
+            {this.state.setAttribute.length === 0 ? (
               <ButtonDisabled onClick={() => addToCart(data?.product)} disabled>
                 Select Attribute
               </ButtonDisabled>
@@ -127,8 +146,8 @@ const SingleProduct = styled.div`
   margin-top: 100px;
   img {
     width: 100%;
-  height: 330px;
-  object-fit: cover;
+    height: 330px;
+    object-fit: cover;
   }
 `;
 const Button = styled.button`
@@ -146,5 +165,9 @@ const ButtonDisabled = styled.button`
   color: white;
   border: none;
   cursor: pointer;
+`;
+const MainImg = styled.img`
+  width: 610px;
+  height: 511px;
 `;
 export default withRouter(getProductById(SingleProductComponent, GET_PRODUCT));

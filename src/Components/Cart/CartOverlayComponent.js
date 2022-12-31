@@ -28,12 +28,12 @@ class CartOverlayComponent extends Component {
     this.state = {
       showModal: false,
       menuOpen: false,
-      setAsstribute: [],
+      setAttribute: [],
     };
   }
   handleAttribute = (e) => {
     this.setState({
-      setAsstribute: [...this.state.setAsstribute, e.target.value],
+      setAttribute: [...this.state.setAttribute, e.target.value],
     });
   };
   modalRef = createRef();
@@ -51,8 +51,6 @@ class CartOverlayComponent extends Component {
 
   closeMenu = (event) => {
     if (this.modalRef.current && this.modalRef.current.contains(event.target)) {
-      console.log(this.modalRef.current);
-      console.log(event.target);
       return;
     }
     this.setState({ showModal: false }, () => {

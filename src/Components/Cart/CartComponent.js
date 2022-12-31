@@ -6,13 +6,13 @@ class CartComponent extends Component {
   constructor() {
     super();
     this.state = {
-      setAsstribute: [],
+      setAttribute: [],
     };
   }
 
   handleAttribute = (e) => {
     this.setState({
-      setAsstribute: [...this.state.setAsstribute, e.target.value],
+      setAttribute: [...this.state.setAttribute, e.target.value],
     });
   };
   render() {
