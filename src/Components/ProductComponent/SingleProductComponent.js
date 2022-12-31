@@ -10,13 +10,11 @@ import DOMPurify from "dompurify";
 
 class SingleProductComponent extends Component {
   static contextType = CartContext;
-  constructor() {
-    super();
-    this.state = {
-      setAttribute: [],
-      setPicture: [],
-    };
-  }
+
+  state = {
+    setAttribute: [],
+    setPicture: this.props.data?.product?.gallery[1],
+  };
 
   handleAttribute = (e) => {
     this.setState({
@@ -25,7 +23,7 @@ class SingleProductComponent extends Component {
   };
   handlePicture = (e) => {
     this.setState({ setPicture: e });
-    console.log(this.state.setPicture);
+    console.log(this.props.data?.product?.gallery[1]);
   };
 
   render() {
@@ -36,11 +34,12 @@ class SingleProductComponent extends Component {
     // );
     const { setAttribute, handleAttribute } = this.props;
     // console.log(this.state.setPicture);
+    console.log(data?.product?.gallery[1]);
     return (
       <div>
         <Header />
         <SingleProduct>
-          <div>
+          <Carousel>
             <ul>
               {data?.product?.gallery.map((imageUrl, index) => {
                 // console.log(imageUrl);
@@ -57,9 +56,13 @@ class SingleProductComponent extends Component {
               })}
             </ul>
             <div>
-              <img src={this.state.setPicture} alt="product" />
+              {this.state.setPicture ? (
+                <img src={this.state.setPicture} alt="product" />
+              ) : (
+                <img src={`${data?.product?.gallery[0]}`} alt="" />
+              )}
             </div>
-          </div>
+          </Carousel>
           <div>
             <h3>{data?.product?.name}</h3>
             <div
@@ -142,7 +145,7 @@ class SingleProductComponent extends Component {
 }
 const SingleProduct = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-top: 100px;
   img {
     width: 100%;
@@ -166,8 +169,17 @@ const ButtonDisabled = styled.button`
   border: none;
   cursor: pointer;
 `;
-const MainImg = styled.img`
-  width: 610px;
-  height: 511px;
+const Carousel = styled.div`
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px 100px;
+  li img {
+    width: 100px;
+    height: 110px;
+  }
+  div img {
+    width: 100%;
+    height: 95%;
+  }
 `;
 export default withRouter(getProductById(SingleProductComponent, GET_PRODUCT));
