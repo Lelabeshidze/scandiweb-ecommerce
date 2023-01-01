@@ -24,12 +24,11 @@ class ActionsComponent extends Component {
     const { cartItems, totalAmount } = this.props.cartItems;
 
     return (
-      <CurrenciesContainer className="actions">
+      <CurrenciesContainer>
         <select name="currency" onChange={this.onSelectChange.bind(this)}>
           {data?.currencies?.map((currency, index) => {
             return (
               <option key={index} value={currency.label}>
-                {currency.label}
                 {currency.symbol}
               </option>
             );
@@ -41,8 +40,15 @@ class ActionsComponent extends Component {
   }
 }
 const CurrenciesContainer = styled.div`
-  .actions {
-    display: flex;
+  display: flex;
+
+  select {
+    margin-right: 25px;
+    border: none;
+    font-size: 18px;
+    option {
+      font-size: 18px;
+    }
   }
 `;
 

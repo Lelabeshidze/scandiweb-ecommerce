@@ -71,9 +71,10 @@ class CartOverlayComponent extends Component {
             reactDom.createPortal(<Overlay />, portalTarget)}
         </>
         <Container ref={this.modalRef}>
-          <>
+          <CartIcon>
             <img src={CartLogo} alt="logo" onClick={this.handleClick} />
-          </>
+            <span>{totalAmount}</span>
+          </CartIcon>
 
           {this.state.showModal && (
             <CartContainer>
@@ -99,7 +100,8 @@ class CartOverlayComponent extends Component {
                                         <span>{price.amount}</span>
                                       </>
                                     ) : (
-                                      <></>
+                                      <>
+                                      </>
                                     )}
                                   </div>
                                 );
@@ -280,5 +282,27 @@ const ViewBag = styled.button`
   border: solid 1px;
   cursor: pointer;
   margin: 5px;
+`;
+const CartIcon = styled.div`
+  position: relative;
+  img {
+    width: 30px;
+    height: 30px;
+  }
+  span {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    background: black;
+    color: white;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+  }
 `;
 export default CartOverlayComponent;
