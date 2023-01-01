@@ -33,9 +33,7 @@ class SingleProductComponent extends Component {
     //   data?.product?.attributes.map((item) => console.log(item.type))
     // );
     const { setAttribute, handleAttribute } = this.props;
-    // console.log(this.state.setPicture);
-    console.log(data?.product?.attributes);
-    console.log(data?.product?.gallery[1]);
+  
     return (
       <div>
         <Header />
@@ -64,7 +62,7 @@ class SingleProductComponent extends Component {
               )}
             </div>
           </Carousel>
-          <div>
+          <ProductContent>
             <h3>{data?.product?.name}</h3>
             <div
               dangerouslySetInnerHTML={{
@@ -139,7 +137,7 @@ class SingleProductComponent extends Component {
                 Add to cart
               </Button>
             )}
-          </div>
+          </ProductContent>
         </SingleProduct>
       </div>
     );
@@ -149,6 +147,7 @@ const SingleProduct = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 100px;
+
   img {
     width: 100%;
     height: 330px;
@@ -162,6 +161,7 @@ const Button = styled.button`
   color: white;
   border: none;
   cursor: pointer;
+  margin-top: 20px;
 `;
 const ButtonDisabled = styled.button`
   width: 200px;
@@ -170,11 +170,29 @@ const ButtonDisabled = styled.button`
   color: white;
   border: none;
   cursor: pointer;
+  margin-top: 20px;
+`;
+const ProductContent = styled.div`
+  width: 500px;
+  div {
+    padding-top: 15px;
+    text-align: justify;
+    p {
+      margin-top: 10px;
+    }
+    h3 {
+      margin-top: 15px;
+    }
+    li {
+      padding-top: 15px;
+    }
+  }
 `;
 const Carousel = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   gap: 10px 100px;
+  cursor: pointer;
   li img {
     width: 100px;
     height: 110px;
