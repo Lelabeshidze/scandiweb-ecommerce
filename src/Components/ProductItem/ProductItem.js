@@ -47,7 +47,7 @@ class ProductItem extends Component {
                   })}
                 </h4>
                 {!selectCurrency && (
-                  <div style={{ display: "inline" }}>
+                  <div style={{ display: "inline", marginLeft: "10px" }}>
                     <span>{prices[0].currency.symbol}</span>
                     <span>{prices[0].amount}</span>
                   </div>
@@ -67,6 +67,9 @@ const SingleProduct = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  div img {
+    display: none;
+  }
   img {
     width: 95%;
     height: 330px;
@@ -76,13 +79,20 @@ const SingleProduct = styled.div`
   }
   h4 {
     margin-top: 10px;
+    margin-left: 10px;
   }
   p {
     margin-top: 20px;
+    margin-left: 10px;
   }
   &&:hover {
     transition: all 300ms ease;
     box-shadow: 0 2rem 2rem 2rem rgba(132, 139, 200, 0.18);
+  }
+  &&:hover div img {
+    display: block;
+    transition: 0.3s;
+    
   }
 `;
 const CartIcon = styled.div`

@@ -34,6 +34,7 @@ class SingleProductComponent extends Component {
     // );
     const { setAttribute, handleAttribute } = this.props;
     // console.log(this.state.setPicture);
+    console.log(data?.product?.attributes);
     console.log(data?.product?.gallery[1]);
     return (
       <div>
@@ -128,7 +129,8 @@ class SingleProductComponent extends Component {
                 </div>
               );
             })}
-            {this.state.setAttribute.length === 0 ? (
+            {data?.product?.attributes.length > 0 &&
+            this.state.setAttribute.length === 0 ? (
               <ButtonDisabled onClick={() => addToCart(data?.product)} disabled>
                 Select Attribute
               </ButtonDisabled>
