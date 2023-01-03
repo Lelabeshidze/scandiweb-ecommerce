@@ -6,8 +6,7 @@ import { getAllProducts } from "../../GraphQL/getAllCategory";
 import { getData } from "../../GraphQL/getData";
 import Header from "../../Layout/Header";
 import CurrencyContext from "../../Utils/CurrencyContext";
-import { withRouter } from "../../Utils/withRouter";
-import ProductItem from "../ProductItem/ProductItem";
+
 
 class ClothesComponent extends Component {
   static contextType = CurrencyContext;
@@ -84,4 +83,4 @@ const Title = styled.h1`
   margin-top: 40px;
   text-transform: uppercase;
 `;
-export default withRouter(getData(ClothesComponent, GET_CLOTHES_PRODUCTS));
+export default getData(ClothesComponent, GET_CLOTHES_PRODUCTS);

@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SingleProductComponent from "./Components/ProductComponent/SingleProductComponent";
+import { GET_PRODUCTS_BY_CATEGORIES } from "./GraphQL/dataQueries";
+import { getAllProducts } from "./GraphQL/getAllCategory";
 import Cart from "./Pages/Cart";
 import CategoryPage from "./Pages/CategoryPage";
 import ClothesPage from "./Pages/ClothesPage";
 import TechPage from "./Pages/TechPage";
 
+
 class App extends Component {
   render() {
-    const { data } = this.props;
+   
 
     return (
       <div>
@@ -37,4 +40,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default getAllProducts(App, GET_PRODUCTS_BY_CATEGORIES);

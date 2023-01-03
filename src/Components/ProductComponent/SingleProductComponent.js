@@ -33,7 +33,7 @@ class SingleProductComponent extends Component {
     //   data?.product?.attributes.map((item) => console.log(item.type))
     // );
     const { setAttribute, handleAttribute } = this.props;
-  
+
     return (
       <div>
         <Header />

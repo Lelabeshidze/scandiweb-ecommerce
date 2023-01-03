@@ -18,6 +18,7 @@ class TechComponent extends Component {
     const { data } = this.props;
     const { selectCurrency } = this.context;
     const { params } = this.props;
+    console.log(this.props);
     // const tech = data.filter((name) => name === categoryName.name);
 
     if (data) {
@@ -90,4 +91,4 @@ const Title = styled.h1`
   margin-top: 40px;
   text-transform: uppercase;
 `;
-export default withRouter(getData(TechComponent, GET_TECH_PRODUCTS));
+export default getData(TechComponent, GET_TECH_PRODUCTS);

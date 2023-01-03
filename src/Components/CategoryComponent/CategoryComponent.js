@@ -11,7 +11,7 @@ import ProductItem from "../ProductItem/ProductItem";
 class CategoryComponent extends Component {
   render() {
     const { data } = this.props;
-
+    console.log(data);
     if (data) {
       if (!data.category)
         return <h1 className="error-message">Category not found</h1>;
@@ -39,8 +39,7 @@ const ProductContainer = styled.div`
 const Title = styled.h1`
   margin-top: 40px;
   text-transform: uppercase;
+  font-weight: 300;
 `;
 
-export default withRouter(
-  getAllProducts(CategoryComponent, GET_PRODUCTS_BY_CATEGORIES)
-);
+export default getAllProducts(CategoryComponent, GET_PRODUCTS_BY_CATEGORIES);

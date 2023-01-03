@@ -36,6 +36,7 @@ export const GET_PRODUCTS_BY_CATEGORIES = gql`
     }
   }
 `;
+
 export const GET_PRODUCT = gql`
   query GetProduct($productId: String!) {
     product(id: $productId) {

@@ -84,9 +84,9 @@ class CartComponent extends Component {
                                         width: "30px",
                                         height: "30px",
                                         display: "flex",
-                                        borderStyle: "groove",
                                         margin: "5px",
                                         cursor: "pointer",
+                                        border: "1px ",
                                       }}
                                       onClick={this.handleAttribute.bind(this)}
                                     ></option>
@@ -106,11 +106,11 @@ class CartComponent extends Component {
                                         display: "flex",
                                         justifyContent: "center",
                                         alignItems: "center",
-                                        width: "50px",
+                                        width: "55px",
                                         height: "35px",
-                                        borderStyle: "groove",
                                         margin: "5px",
                                         cursor: "pointer",
+                                        border: "1px solid",
                                       }}
                                       onClick={this.handleAttribute.bind(this)}
                                     >
@@ -151,6 +151,11 @@ const Container = styled.div`
   div {
     margin-top: 10px;
   }
+  option:hover {
+    background: black;
+    color: white;
+    transition: all 300ms ease;
+  }
 `;
 const SingleProduct = styled.div`
   display: flex;
@@ -169,6 +174,12 @@ const Button = styled.button`
   text-align: center;
   background-color: white;
   border: 1px solid;
+  cursor: pointer;
+  &&:hover {
+    background: black;
+    color: white;
+    transition: all 300ms ease;
+  }
 `;
 const Actions = styled.div`
   display: flex;

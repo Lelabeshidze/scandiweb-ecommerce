@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { GET_CATEGORIES } from "../GraphQL/dataQueries";
 import { getData } from "../GraphQL/getData";
@@ -16,12 +16,12 @@ class Navigation extends Component {
             {data?.categories?.map((category, index) => {
               return (
                 <li key={index}>
-                  <NavLink
-                    className="Li"
+                  <Link
+                    className="Li "
                     to={`/${category.name === "all" ? "" : category.name}`}
                   >
                     {category.name}
-                  </NavLink>
+                  </Link>
                 </li>
               );
             })}
@@ -43,11 +43,6 @@ const NavBar = styled.nav`
       text-transform: uppercase;
     }
   }
-  li {
-    list-style-type: none;
-    display: inline-block;
-    margin: 5px 10px;
-  }
 
   li > a {
     color: #333;
@@ -59,18 +54,22 @@ const NavBar = styled.nav`
   li > a::after {
     content: "";
     display: block;
-    margin-top: 15px;
-    height: 3px;
+    margin: auto;
+    margin-top: 20px;
+    height: 2px;
     width: 0;
     top: 5px;
     background: transparent;
-    transition: all 0.4s;
+    transition: all 0.3s ease;
   }
 
   li > a:hover::after {
     width: 100%;
     background: #5ece7b;
   }
+  a:hover {
+    color: #5ece7b;
+  }
 `;
 
-export default withRouter(getData(Navigation, GET_CATEGORIES));
+export default getData(Navigation, GET_CATEGORIES);
