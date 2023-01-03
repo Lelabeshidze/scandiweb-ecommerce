@@ -149,6 +149,7 @@ const SingleProductOutStck = styled.div`
     left: 30%;
     transform: translate(-50%, -50%)
     font-size: 20px;
+    font-weight:500;
   }
   div img {
     display: none;
