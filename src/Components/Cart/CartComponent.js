@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import Header from "../../Layout/Header";
-
+import DOMPurify from "dompurify";
+import CurrencyContext from "../../Utils/CurrencyContext";
 class CartComponent extends Component {
+  static contextType = CurrencyContext;
   constructor() {
     super();
     this.state = {
@@ -17,81 +19,120 @@ class CartComponent extends Component {
   };
   render() {
     const { cartItems, addToCart, removeFromCart } = this.props.cartItems;
-
+    const { selectCurrency } = this.context;
     return (
       <div>
         <Header />
+        <h2 style={{ marginTop: "40px" }}>CART</h2>
+
         {cartItems.length > 0 ? (
           <div>
             {cartItems?.map((item, index) => {
               const { attributes } = item;
+              const { prices } = item;
 
               return item.count > 0 ? (
                 <SingleProduct key={index}>
-                  <img src={item.gallery[0]} alt="photo" />
-                  <p>{item.count}</p>
                   <div>
+                    <div>
+                      <h3>{item.name}</h3>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: DOMPurify.sanitize(item.description),
+                        }}
+                      ></p>
+                      <h4>
+                        {prices?.map((price, index) => {
+                          return (
+                            <div key={index}>
+                              {price.currency.label === selectCurrency ? (
+                                <>
+                                  <span>{price.currency.symbol}</span>
+                                  <span>{price.amount}</span>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </h4>
+                      {!selectCurrency && (
+                        <h4>
+                          <span>{prices[0].currency.symbol}</span>
+                          <span>{prices[0].amount}</span>
+                        </h4>
+                      )}
+                    </div>
                     {attributes.map((attribute, index) => {
                       const { name, type, items } = attribute;
 
                       return (
-                        <div key={index}>
-                          <h3>{name}</h3>
-                          {attribute.name === "Color" ? (
-                            <div style={{ display: "flex" }}>
-                              {items.map((item) => {
-                                return (
-                                  <option
-                                    key={item.id}
-                                    name="attribute"
-                                    value={`${item.value}`}
-                                    style={{
-                                      backgroundColor: `${item.value}`,
-                                      width: "20px",
-                                      height: "20px",
-                                      display: "flex",
-                                      borderStyle: "groove",
-                                      margin: "5px",
-                                      cursor: "pointer",
-                                    }}
-                                    onClick={this.handleAttribute.bind(this)}
-                                  ></option>
-                                );
-                              })}
-                            </div>
-                          ) : (
-                            <div style={{ display: "flex" }}>
-                              {items.map((item) => {
-                                return (
-                                  <option
-                                    name="attribute"
-                                    value={`${item.value}`}
-                                    key={item.id}
-                                    style={{
-                                      textAlign: "center",
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      width: "40px",
-                                      height: "20px",
-                                      borderStyle: "groove",
-                                      margin: "5px",
-                                      cursor: "pointer",
-                                    }}
-                                    onClick={this.handleAttribute.bind(this)}
-                                  >
-                                    {item.value}
-                                  </option>
-                                );
-                              })}
-                            </div>
-                          )}
-                        </div>
+                        <Container key={index}>
+                          <div key={index}>
+                            <h3>{name}</h3>
+                            {attribute.name === "Color" ? (
+                              <div style={{ display: "flex" }}>
+                                {items.map((attributeItem) => {
+                                  return (
+                                    <option
+                                      key={attributeItem.id}
+                                      name="attribute"
+                                      value={`${attributeItem.value}`}
+                                      style={{
+                                        backgroundColor: `${attributeItem.value}`,
+                                        width: "30px",
+                                        height: "30px",
+                                        display: "flex",
+                                        borderStyle: "groove",
+                                        margin: "5px",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={this.handleAttribute.bind(this)}
+                                    ></option>
+                                  );
+                                })}
+                              </div>
+                            ) : (
+                              <div style={{ display: "flex" }}>
+                                {items.map((attributeItem) => {
+                                  return (
+                                    <option
+                                      name="attribute"
+                                      value={`${attributeItem.value}`}
+                                      key={attributeItem.id}
+                                      style={{
+                                        textAlign: "center",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        width: "50px",
+                                        height: "35px",
+                                        borderStyle: "groove",
+                                        margin: "5px",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={this.handleAttribute.bind(this)}
+                                    >
+                                      {attributeItem.value}
+                                    </option>
+                                  );
+                                })}
+                              </div>
+                            )}
+                          </div>
+                        </Container>
                       );
                     })}
                   </div>
-                  <Button onClick={() => removeFromCart(item)}>-</Button>
-                  <Button onClick={() => addToCart(item)}>+</Button>
+                  <Actions>
+                    <div>
+                      <Button onClick={() => removeFromCart(item)}>-</Button>
+                      <p>{item.count}</p>
+                      <Button onClick={() => addToCart(item)}>+</Button>
+                    </div>
+                    <img src={item.gallery[0]} alt="product" />
+                  </Actions>
                 </SingleProduct>
               ) : (
                 ""
@@ -105,21 +146,39 @@ class CartComponent extends Component {
     );
   }
 }
+
+const Container = styled.div`
+  div {
+    margin-top: 10px;
+  }
+`;
 const SingleProduct = styled.div`
-  position: relative;
-  max-width: 700px;
-  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
   margin-top: 90px;
   img {
-    width: 70%;
-
+    width: 200px;
+    height: 288px;
     object-fit: cover;
   }
 `;
 const Button = styled.button`
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   text-align: center;
+  background-color: white;
+  border: 1px solid;
 `;
+const Actions = styled.div`
+  display: flex;
 
+  div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between;
+    margin-right: 15px;
+  }
+`;
 export default CartComponent;

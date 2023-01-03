@@ -21,7 +21,6 @@ class ProductItem extends Component {
       <>
         {products?.map((product, index) => {
           const { prices, inStock } = product;
-          console.log(inStock);
 
           return inStock ? (
             <Link to={`${product.id}/description`} key={index}>
@@ -61,7 +60,7 @@ class ProductItem extends Component {
               </SingleProduct>
             </Link>
           ) : (
-            <SingleProductOutStck>
+            <SingleProductOutStck key={index}>
               <img src={product.gallery[0]} alt="img" />
               <p>{product.name}</p>
               <CartIcon>
