@@ -70,7 +70,7 @@ class CartComponent extends Component {
                       return (
                         <Container key={index}>
                           <div key={index}>
-                            <h3>{name}</h3>
+                            <h4 style={{ fontWeight: "600" }}>{name}</h4>
                             {attribute.name === "Color" ? (
                               <div style={{ display: "flex" }}>
                                 {items.map((attributeItem) => {
@@ -166,6 +166,12 @@ const SingleProduct = styled.div`
     width: 200px;
     height: 288px;
     object-fit: cover;
+  }
+  p {
+    margin-top: 10px;
+  }
+  h4 {
+    margin-top: 10px;
   }
 `;
 const Button = styled.button`

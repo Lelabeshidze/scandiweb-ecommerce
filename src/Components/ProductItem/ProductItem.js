@@ -63,9 +63,7 @@ class ProductItem extends Component {
             <SingleProductOutStck key={index}>
               <img src={product.gallery[0]} alt="img" />
               <p>{product.name}</p>
-              <CartIcon>
-                <img src={Cart} alt="cart" />
-              </CartIcon>
+
               <h4>
                 {prices?.map((price, index) => {
                   return (
@@ -151,9 +149,7 @@ const SingleProductOutStck = styled.div`
     font-size: 20px;
     font-weight:500;
   }
-  div img {
-    display: none;
-  }
+ 
   img {
     width: 95%;
     height: 330px;
@@ -170,10 +166,7 @@ const SingleProductOutStck = styled.div`
     margin-top: 20px;
     margin-left: 10px;
   }
-  &&:hover {
-    transition: all 300ms ease;
-    box-shadow: 0 2rem 2rem 2rem rgba(132, 139, 200, 0.18);
-  }
+
 `;
 const CartIcon = styled.div`
   img {
