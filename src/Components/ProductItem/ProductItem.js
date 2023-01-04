@@ -24,7 +24,7 @@ class ProductItem extends Component {
 
           return inStock ? (
             <Link to={`${product.id}/description`} key={index}>
-              <SingleProduct>
+              <SingleProduct id="Product">
                 <img src={product.gallery[0]} alt="img" />
                 <p>{product.name}</p>
                 <CartIcon>

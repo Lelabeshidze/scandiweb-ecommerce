@@ -23,7 +23,7 @@ class ClothesComponent extends Component {
           <Title>{data?.category?.name}</Title>
           <ProductContainer>
             {products.map((product, index) => {
-              const { prices,inStock } = product;
+              const { prices, inStock } = product;
               return inStock ? (
                 <Link to={`${product.id}/description`} key={index}>
                   <SingleProduct key={index}>
@@ -61,11 +61,11 @@ class ClothesComponent extends Component {
                     )}
                   </SingleProduct>
                 </Link>
-              ): (
+              ) : (
                 <SingleProductOutStck key={index}>
                   <img src={product.gallery[0]} alt="img" />
                   <p>{product.name}</p>
-    
+
                   <h4>
                     {prices?.map((price, index) => {
                       return (

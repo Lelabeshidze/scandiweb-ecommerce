@@ -8,16 +8,21 @@ export class CartProvider extends Component {
   state = {
     cartItems: this.cart,
     totalAmount: 0,
-   
+    setAttribute: [],
   };
 
   componentDidMount() {
     const totalAmount = this.calculateTotalAmount(this.cart);
     this.setState({ totalAmount: totalAmount });
-  
   }
+  handleAttribute = (e) => {
+    this.setState({
+      setAttribute: [...this.state.setAttribute, e.target.value],
+    });
+  };
   addToCart = (product) => {
     const cartItems = this.state.cartItems.slice();
+   
     let alreadyInCart = false;
     cartItems.forEach((item) => {
       if (item.id === product.id) {
@@ -35,9 +40,6 @@ export class CartProvider extends Component {
 
     const totalAmount = this.calculateTotalAmount(cartItems);
     this.setState({ totalAmount: totalAmount });
-   
- 
-  
   };
 
   removeFromCart = (product) => {
@@ -54,7 +56,6 @@ export class CartProvider extends Component {
 
     const totalAmount = this.calculateTotalAmount(cartItems);
     this.setState({ totalAmount: totalAmount });
-  
   };
   calculateTotalAmount = (updatedCart) => {
     let totalAmount = 0;
@@ -64,12 +65,10 @@ export class CartProvider extends Component {
     return totalAmount;
   };
 
-  
-
   render() {
     const { children } = this.props;
-    const { cartItems, totalAmount } = this.state;
-
+    const { cartItems, totalAmount, setAttribute } = this.state;
+    const changeAttribute = this.handleAttribute;
     const addToCart = this.addToCart;
     const removeFromCart = this.removeFromCart;
     return (
@@ -79,6 +78,8 @@ export class CartProvider extends Component {
           cartItems,
           totalAmount,
           removeFromCart,
+          changeAttribute,
+          setAttribute,
         }}
       >
         {children}

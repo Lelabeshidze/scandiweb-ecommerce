@@ -7,33 +7,25 @@ import Header from "../../Layout/Header";
 import CartContext from "../../Utils/CartContext";
 import styled from "styled-components";
 import DOMPurify from "dompurify";
+import CurrencyContext from "../../Utils/CurrencyContext";
 
 class SingleProductComponent extends Component {
   static contextType = CartContext;
 
   state = {
-    setAttribute: [],
     setPicture: this.props.data?.product?.gallery[1],
   };
 
-  handleAttribute = (e) => {
-    this.setState({
-      setAttribute: [...this.state.setAttribute, e.target.value],
-    });
-  };
   handlePicture = (e) => {
     this.setState({ setPicture: e });
-    console.log(this.props.data?.product?.gallery[1]);
   };
 
   render() {
-    const { data } = this.props;
-    const { cartItems, addToCart } = this.context;
-    // console.log(
-    //   data?.product?.attributes.map((item) => console.log(item.type))
-    // );
-    const { setAttribute, handleAttribute } = this.props;
-
+    const { data, currency } = this.props;
+    const { selectCurrency } = currency;
+    const { cartItems, addToCart, changeAttribute, setAttribute } =
+      this.context;
+    console.log(selectCurrency);
     return (
       <div>
         <Header />
@@ -88,11 +80,11 @@ class SingleProductComponent extends Component {
                               width: "30px",
                               height: "30px",
                               display: "flex",
-                              borderStyle: "groove",
                               margin: "5px",
                               cursor: "pointer",
+                              border: "1px ",
                             }}
-                            onClick={this.handleAttribute.bind(this)}
+                            onClick={changeAttribute.bind(this)}
                           ></option>
                         );
                       })}
@@ -110,13 +102,13 @@ class SingleProductComponent extends Component {
                               display: "flex",
                               justifyContent: "center",
                               alignItems: "center",
-                              width: "45px",
-                              height: "40px",
-                              borderStyle: "groove",
+                              width: "55px",
+                              height: "35px",
                               margin: "5px",
                               cursor: "pointer",
+                              border: "1px solid",
                             }}
-                            onClick={this.handleAttribute.bind(this)}
+                            onClick={changeAttribute.bind(this)}
                           >
                             {item.value}
                           </option>
@@ -127,8 +119,34 @@ class SingleProductComponent extends Component {
                 </div>
               );
             })}
+            <div style={{ fontWeight: "bold" }}>
+              {selectCurrency ? (
+                data?.product?.prices?.map((price, index) => {
+                  return (
+                    <span key={index}>
+                      {price.currency.label === selectCurrency ? (
+                        <>
+                          <p>PRICE:</p>
+                          <span>{price.currency.symbol}</span>
+                          <span>{price.amount}</span>
+                        </>
+                      ) : (
+                        <></>
+                      )}
+                    </span>
+                  );
+                })
+              ) : (
+                <>
+                  <p>PRICE:</p>
+                  <span>{data?.product?.prices[0].currency.symbol}</span>
+                  <span>{data?.product?.prices[0].amount}</span>
+                </>
+              )}
+            </div>
+
             {data?.product?.attributes.length > 0 &&
-            this.state.setAttribute.length === 0 ? (
+            setAttribute.length === 0 ? (
               <ButtonDisabled onClick={() => addToCart(data?.product)} disabled>
                 Select Attribute
               </ButtonDisabled>
@@ -186,6 +204,11 @@ const ProductContent = styled.div`
     li {
       padding-top: 15px;
     }
+  }
+  option:hover {
+    background: black;
+    color: white;
+    transition: all 300ms ease;
   }
 `;
 const Carousel = styled.div`

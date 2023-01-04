@@ -5,22 +5,7 @@ import styled from "styled-components";
 import CartLogo from "../../Assets/cart.svg";
 import CurrencyContext from "../../Utils/CurrencyContext";
 import Cart from "../../Pages/Cart";
-class Overlay extends React.Component {
-  render() {
-    return (
-      <div
-        style={{
-          position: "fixed",
-          top: "79px",
-          width: "100%",
-          height: " 100%",
-          background: "rgba(57, 55, 72, 0.22)",
-          zIndex: "5",
-        }}
-      ></div>
-    );
-  }
-}
+
 class CartOverlayComponent extends Component {
   static contextType = CurrencyContext;
   constructor() {
@@ -62,14 +47,14 @@ class CartOverlayComponent extends Component {
     const { cartItems, addToCart, removeFromCart, totalAmount } =
       this.props.cartItems;
     const { selectCurrency } = this.context;
-    const portalTarget = document.getElementById("overlays");
+
+    if (this.state.showModal) {
+      document.getElementById("root").classList.add("Overlay");
+    } else {
+      document.getElementById("root").classList.remove("Overlay");
+    }
     return (
       <>
-        {" "}
-        <>
-          {this.state.showModal &&
-            reactDom.createPortal(<Overlay />, portalTarget)}
-        </>
         <Container ref={this.modalRef}>
           <CartIcon>
             <img src={CartLogo} alt="logo" onClick={this.handleClick} />
@@ -100,8 +85,7 @@ class CartOverlayComponent extends Component {
                                         <span>{price.amount}</span>
                                       </>
                                     ) : (
-                                      <>
-                                      </>
+                                      <></>
                                     )}
                                   </div>
                                 );
@@ -119,7 +103,7 @@ class CartOverlayComponent extends Component {
 
                                 return (
                                   <div key={index}>
-                                    <h3>{name}</h3>
+                                    <p>{name}</p>
                                     {attribute.name === "Color" ? (
                                       <div style={{ display: "flex" }}>
                                         {items.map((item) => {
@@ -130,12 +114,12 @@ class CartOverlayComponent extends Component {
                                               value={`${item.value}`}
                                               style={{
                                                 backgroundColor: `${item.value}`,
-                                                width: "20px",
-                                                height: "20px",
+                                                width: "30px",
+                                                height: "30px",
                                                 display: "flex",
-                                                borderStyle: "groove",
                                                 margin: "5px",
                                                 cursor: "pointer",
+                                                border: "1px ",
                                               }}
                                               onClick={this.handleAttribute.bind(
                                                 this
@@ -157,11 +141,11 @@ class CartOverlayComponent extends Component {
                                                 display: "flex",
                                                 justifyContent: "center",
                                                 alignItems: "center",
-                                                width: "40px",
-                                                height: "20px",
-                                                borderStyle: "groove",
+                                                width: "55px",
+                                                height: "35px",
                                                 margin: "5px",
                                                 cursor: "pointer",
+                                                border: "1px solid",
                                               }}
                                               onClick={this.handleAttribute.bind(
                                                 this
@@ -178,15 +162,22 @@ class CartOverlayComponent extends Component {
                               })}
                             </div>
                           </div>
-                          <Actions>
-                            <Button onClick={() => addToCart(item)}>+</Button>
-                            <p>{item.count}</p>
-                            <Button onClick={() => removeFromCart(item)}>
-                              -
-                            </Button>
-                          </Actions>
-                          <div>
-                            <img src={item.gallery[0]} alt="photo" />
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Actions>
+                              <Button onClick={() => addToCart(item)}>+</Button>
+                              <p>{item.count}</p>
+                              <Button onClick={() => removeFromCart(item)}>
+                                -
+                              </Button>
+                            </Actions>
+                            <div>
+                              <img src={item.gallery[0]} alt="photo" />
+                            </div>
                           </div>
                         </SingleProduct>
                       ) : (
@@ -231,11 +222,12 @@ const CartContainer = styled.div`
   display: block;
   position: absolute;
   z-index: 2;
-  width: 400px;
-  right: 20px;
+  width: 450px;
+  right: 60px;
   background-color: white;
   h3 {
     margin-top: 20px;
+    margin-left: 15px;
   }
 `;
 const CartContent = styled.div`
@@ -243,16 +235,20 @@ const CartContent = styled.div`
   width: 100%;
   background-color: white;
   z-index: 1;
+  right: 50px;
+  font-size: 14px;
 `;
 const SingleProduct = styled.div`
   background-color: white;
   width: 100%;
   margin-top: 50px;
+  margin-left: 15px;
   display: flex;
-  justify-content: center;
+
   img {
-    width: 70%;
-    object-fit: contain;
+    width: 100px;
+    height: 100%;
+    object-fit: cover;
   }
   z-index: 1;
 `;
