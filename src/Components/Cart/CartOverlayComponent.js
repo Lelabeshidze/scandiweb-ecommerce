@@ -250,6 +250,11 @@ const SingleProduct = styled.div`
     height: 100%;
     object-fit: cover;
   }
+  option:hover {
+    background: black;
+    color: white;
+    transition: all 300ms ease;
+  }
   z-index: 1;
 `;
 const Actions = styled.div`

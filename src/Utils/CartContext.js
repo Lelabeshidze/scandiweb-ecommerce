@@ -22,7 +22,7 @@ export class CartProvider extends Component {
   };
   addToCart = (product) => {
     const cartItems = this.state.cartItems.slice();
-   
+
     let alreadyInCart = false;
     cartItems.forEach((item) => {
       if (item.id === product.id) {

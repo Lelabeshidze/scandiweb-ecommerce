@@ -19,13 +19,13 @@ class SingleProductComponent extends Component {
   handlePicture = (e) => {
     this.setState({ setPicture: e });
   };
-
+ 
   render() {
     const { data, currency } = this.props;
     const { selectCurrency } = currency;
     const { cartItems, addToCart, changeAttribute, setAttribute } =
       this.context;
-    console.log(selectCurrency);
+    console.log(setAttribute);
     return (
       <div>
         <Header />
@@ -94,6 +94,7 @@ class SingleProductComponent extends Component {
                       {items.map((item) => {
                         return (
                           <option
+                           
                             name="attribute"
                             value={`${item.value}`}
                             key={item.id}
