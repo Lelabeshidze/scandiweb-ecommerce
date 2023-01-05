@@ -9,38 +9,72 @@ export class CartProvider extends Component {
     cartItems: this.cart,
     totalAmount: 0,
     setAttribute: [],
+    attributesId: "",
   };
 
   componentDidMount() {
     const totalAmount = this.calculateTotalAmount(this.cart);
     this.setState({ totalAmount: totalAmount });
   }
-  handleAttribute = (e) => {
+  handleAttribute = (attributeName, attributeObj) => {
+    const selectedAttributeObj = { [attributeName]: attributeObj };
+    const setAttribute = {
+      ...this.state.setAttribute,
+      ...selectedAttributeObj,
+    };
+    let attributesId = "";
+    for (const key in setAttribute) {
+      attributesId = attributesId + setAttribute[key].displayValue;
+    }
     this.setState({
-      setAttribute: [...this.state.setAttribute, e.target.value],
+      attributesId,
+      setAttribute,
     });
+
   };
-  addToCart = (product) => {
-    const cartItems = this.state.cartItems.slice();
+  // addToCart = (product) => {
+  //   const cartItems = this.state.cartItems.slice();
 
-    let alreadyInCart = false;
-    cartItems.forEach((item) => {
-      if (item.id === product.id) {
-        item.count++;
-        alreadyInCart = true;
-      }
-    });
+  //   let alreadyInCart = false;
+  //   cartItems.forEach((item) => {
+  //     if (item.id === product.id) {
+  //       item.count++;
+  //       alreadyInCart = true;
+  //     }
+  //   });
 
-    if (!alreadyInCart) {
-      cartItems.push({ ...product, count: 1 });
+  //   if (!alreadyInCart) {
+  //     cartItems.push({ ...product, count: 1 });
+  //   }
+
+  //   this.setState({ cartItems});
+  //   localStorage.setItem("cart", JSON.stringify(cartItems));
+
+  //   const totalAmount = this.calculateTotalAmount(cartItems);
+  //   this.setState({ totalAmount: totalAmount });
+  //   console.log(product)
+  // };
+  addToCart =(productObj)=>{
+    const existingProductIndex = this.state.cartItems.findIndex(
+      (product) => product.id === productObj.id && product.selectedAttributeId === productObj.selectedAttributeId
+    );
+    const existingProduct = this.state.cartItems[existingProductIndex];
+    let updatedCart;
+
+    if (existingProduct) {
+      existingProduct.count++;
+      updatedCart = this.state.cartItems;
+      this.setState({ cartItems: updatedCart });
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    } else {
+      updatedCart = [...this.state.cartItems, { ...productObj, count: 1 }];
+      this.setState({ cartItems: updatedCart });
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
 
-    this.setState({ cartItems });
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-
-    const totalAmount = this.calculateTotalAmount(cartItems);
+    const totalAmount = this.calculateTotalAmount(updatedCart);
     this.setState({ totalAmount: totalAmount });
-  };
+  }
 
   removeFromCart = (product) => {
     const cartItems = this.state.cartItems.slice();
@@ -67,7 +101,7 @@ export class CartProvider extends Component {
 
   render() {
     const { children } = this.props;
-    const { cartItems, totalAmount, setAttribute } = this.state;
+    const { cartItems, totalAmount, setAttribute, attributesId } = this.state;
     const changeAttribute = this.handleAttribute;
     const addToCart = this.addToCart;
     const removeFromCart = this.removeFromCart;
@@ -80,6 +114,7 @@ export class CartProvider extends Component {
           removeFromCart,
           changeAttribute,
           setAttribute,
+          attributesId,
         }}
       >
         {children}

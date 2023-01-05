@@ -19,13 +19,19 @@ class SingleProductComponent extends Component {
   handlePicture = (e) => {
     this.setState({ setPicture: e });
   };
- 
+  onAddToCart = () => {
+    this.context.addToCart({
+      ...this.props.data.product,
+      selectedAttribute: this.context.setAttribute,
+      selectedAttributeId: this.context.attributesId,
+    });
+  };
   render() {
     const { data, currency } = this.props;
     const { selectCurrency } = currency;
     const { cartItems, addToCart, changeAttribute, setAttribute } =
       this.context;
-    console.log(setAttribute);
+
     return (
       <div>
         <Header />
@@ -70,6 +76,7 @@ class SingleProductComponent extends Component {
                   {attribute.name === "Color" ? (
                     <div style={{ display: "flex" }}>
                       {items.map((item) => {
+                        const { value, displayValue } = item;
                         return (
                           <option
                             key={item.id}
@@ -84,7 +91,12 @@ class SingleProductComponent extends Component {
                               cursor: "pointer",
                               border: "1px ",
                             }}
-                            onClick={changeAttribute.bind(this)}
+                            onClick={() =>
+                              changeAttribute(attribute.name, {
+                                value,
+                                displayValue,
+                              })
+                            }
                           ></option>
                         );
                       })}
@@ -92,9 +104,9 @@ class SingleProductComponent extends Component {
                   ) : (
                     <div style={{ display: "flex" }}>
                       {items.map((item) => {
+                        const { value, displayValue } = item;
                         return (
                           <option
-                           
                             name="attribute"
                             value={`${item.value}`}
                             key={item.id}
@@ -109,7 +121,12 @@ class SingleProductComponent extends Component {
                               cursor: "pointer",
                               border: "1px solid",
                             }}
-                            onClick={changeAttribute.bind(this)}
+                            onClick={() =>
+                              changeAttribute(attribute.name, {
+                                value,
+                                displayValue,
+                              })
+                            }
                           >
                             {item.value}
                           </option>
@@ -152,7 +169,7 @@ class SingleProductComponent extends Component {
                 Select Attribute
               </ButtonDisabled>
             ) : (
-              <Button onClick={() => addToCart(data?.product)}>
+              <Button onClick={() => this.onAddToCart(data?.product)}>
                 Add to cart
               </Button>
             )}

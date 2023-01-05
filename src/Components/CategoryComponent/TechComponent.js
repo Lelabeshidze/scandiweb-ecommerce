@@ -17,7 +17,7 @@ class TechComponent extends Component {
     const { data } = this.props;
     const { selectCurrency } = this.context;
     const { params } = this.props;
-    console.log(this.props);
+    
     // const tech = data.filter((name) => name === categoryName.name);
 
     if (data) {

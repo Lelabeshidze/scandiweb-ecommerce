@@ -44,8 +44,9 @@ class CartOverlayComponent extends Component {
   };
 
   render() {
-    const { cartItems, addToCart, removeFromCart, totalAmount } =
+    const { cartItems, addToCart, removeFromCart, totalAmount, setAttribute } =
       this.props.cartItems;
+    console.log(cartItems);
     const { selectCurrency } = this.context;
 
     if (this.state.showModal) {
