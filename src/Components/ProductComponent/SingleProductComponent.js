@@ -29,7 +29,7 @@ class SingleProductComponent extends Component {
   render() {
     const { data, currency } = this.props;
     const { selectCurrency } = currency;
-    const { cartItems, addToCart, changeAttribute, setAttribute } =
+    const { cartItems, addToCart, changeAttribute, setAttribute, } =
       this.context;
 
     return (

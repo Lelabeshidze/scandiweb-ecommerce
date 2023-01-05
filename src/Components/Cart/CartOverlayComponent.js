@@ -44,9 +44,9 @@ class CartOverlayComponent extends Component {
   };
 
   render() {
-    const { cartItems, addToCart, removeFromCart, totalAmount, setAttribute } =
+    const { cartItems, addToCart, removeFromCart, totalAmount } =
       this.props.cartItems;
-    console.log(cartItems);
+
     const { selectCurrency } = this.context;
 
     if (this.state.showModal) {
@@ -72,6 +72,7 @@ class CartOverlayComponent extends Component {
                       const { attributes } = item;
                       const { prices } = item;
                       const { name } = item;
+                      console.log(item);
                       return item.count > 0 ? (
                         <SingleProduct key={index}>
                           <div>
@@ -99,7 +100,7 @@ class CartOverlayComponent extends Component {
                               </>
                             )}
                             <div>
-                              {attributes.map((attribute, index) => {
+                              {/* {attributes.map((attribute, index) => {
                                 const { name, type, items } = attribute;
 
                                 return (
@@ -160,7 +161,8 @@ class CartOverlayComponent extends Component {
                                     )}
                                   </div>
                                 );
-                              })}
+                              })} */}
+                              {item.selectedAttributeId}
                             </div>
                           </div>
                           <div

@@ -10,11 +10,11 @@ class CartOverlayPage extends Component {
         <CurrencyContext.Consumer>
           {(currency) => (
             <CartContext.Consumer>
-              {(cartItems, setAttribute) => (
+              {(cartItems) => (
                 <CartOverlayComponent
                   currency={currency}
                   cartItems={cartItems}
-                
+                 
                 />
               )}
             </CartContext.Consumer>
