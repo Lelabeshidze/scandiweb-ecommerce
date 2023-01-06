@@ -41,13 +41,17 @@ class ActionsComponent extends Component {
 }
 const CurrenciesContainer = styled.div`
   display: flex;
-
+  
   select {
+    cursor: pointer;
     margin-right: 25px;
     border: none;
     font-size: 18px;
+    font-weight: 600;
     option {
+      cursor: pointer;
       font-size: 18px;
+      font-weight: 600;
     }
   }
 `;

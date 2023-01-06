@@ -41,6 +41,7 @@ const NavBar = styled.nav`
     .Li {
       padding-left: 20px;
       text-transform: uppercase;
+      font-weight: 800;
     }
   }
 

@@ -29,7 +29,7 @@ class SingleProductComponent extends Component {
   render() {
     const { data, currency } = this.props;
     const { selectCurrency } = currency;
-    const { cartItems, addToCart, changeAttribute, setAttribute, } =
+    const { cartItems, addToCart, changeAttribute, setAttribute } =
       this.context;
 
     return (
@@ -90,6 +90,7 @@ class SingleProductComponent extends Component {
                               margin: "5px",
                               cursor: "pointer",
                               border: "1px ",
+                              fontWeight: "500",
                             }}
                             onClick={() =>
                               changeAttribute(attribute.name, {
@@ -120,6 +121,7 @@ class SingleProductComponent extends Component {
                               margin: "5px",
                               cursor: "pointer",
                               border: "1px solid",
+                              fontWeight: "800",
                             }}
                             onClick={() =>
                               changeAttribute(attribute.name, {
@@ -198,6 +200,7 @@ const Button = styled.button`
   border: none;
   cursor: pointer;
   margin-top: 20px;
+  
 `;
 const ButtonDisabled = styled.button`
   width: 200px;

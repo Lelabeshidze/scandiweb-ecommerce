@@ -18,7 +18,8 @@ class CartComponent extends Component {
     });
   };
   render() {
-    const { cartItems, addToCart, removeFromCart } = this.props.cartItems;
+    const { cartItems, addToCart, removeFromCart, totalAmount } =
+      this.props.cartItems;
     const { selectCurrency } = this.context;
     return (
       <div>
@@ -30,6 +31,7 @@ class CartComponent extends Component {
             {cartItems?.map((item, index) => {
               const { attributes } = item;
               const { prices } = item;
+              const keys = Object.keys(item.selectedAttribute);
 
               return item.count > 0 ? (
                 <SingleProduct key={index}>
@@ -64,66 +66,36 @@ class CartComponent extends Component {
                         </h4>
                       )}
                     </div>
-                    {attributes.map((attribute, index) => {
-                      const { name, type, items } = attribute;
+                    <ul style={{ display: "flex", }}>
+                      {keys.map((attributeKey) => {
+                        const { value, displayValue } =
+                          item.selectedAttribute[attributeKey];
+                        const swatchAttribute =
+                          attributeKey === "Color" ? value : "";
 
-                      return (
-                        <Container key={index}>
-                          <div key={index}>
-                            <h4 style={{ fontWeight: "600" }}>{name}</h4>
-                            {attribute.name === "Color" ? (
-                              <div style={{ display: "flex" }}>
-                                {items.map((attributeItem) => {
-                                  return (
-                                    <option
-                                      key={attributeItem.id}
-                                      name="attribute"
-                                      value={`${attributeItem.value}`}
-                                      style={{
-                                        backgroundColor: `${attributeItem.value}`,
-                                        width: "30px",
-                                        height: "30px",
-                                        display: "flex",
-                                        margin: "5px",
-                                        cursor: "pointer",
-                                        border: "1px ",
-                                      }}
-                                      onClick={this.handleAttribute.bind(this)}
-                                    ></option>
-                                  );
-                                })}
-                              </div>
-                            ) : (
-                              <div style={{ display: "flex" }}>
-                                {items.map((attributeItem) => {
-                                  return (
-                                    <option
-                                      name="attribute"
-                                      value={`${attributeItem.value}`}
-                                      key={attributeItem.id}
-                                      style={{
-                                        textAlign: "center",
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        width: "55px",
-                                        height: "35px",
-                                        margin: "5px",
-                                        cursor: "pointer",
-                                        border: "1px solid",
-                                      }}
-                                      onClick={this.handleAttribute.bind(this)}
-                                    >
-                                      {attributeItem.value}
-                                    </option>
-                                  );
-                                })}
-                              </div>
-                            )}
-                          </div>
-                        </Container>
-                      );
-                    })}
+                        return (
+                          <li
+                            key={displayValue}
+                            style={{
+                              backgroundColor: swatchAttribute,
+                              textAlign: "center",
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: "55px",
+                              height: "35px",
+                              margin: "5px",
+                              cursor: "pointer",
+                              border: "1px solid",
+                              fontWeight:"600"
+                            }}
+                          >
+                            {attributeKey !== "Color" && <span>{value}</span>}
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
                   <Actions>
                     <div>
@@ -138,6 +110,10 @@ class CartComponent extends Component {
                 ""
               );
             })}
+            <p>
+              Quantity:{" "}
+              <span style={{ fontWeight: "bold" }}>{totalAmount}</span>{" "}
+            </p>
           </div>
         ) : (
           <div>The cart is empty</div>
@@ -147,16 +123,6 @@ class CartComponent extends Component {
   }
 }
 
-const Container = styled.div`
-  div {
-    margin-top: 10px;
-  }
-  option:hover {
-    background: black;
-    color: white;
-    transition: all 300ms ease;
-  }
-`;
 const SingleProduct = styled.div`
   display: flex;
   justify-content: space-between;
@@ -181,6 +147,8 @@ const Button = styled.button`
   background-color: white;
   border: 1px solid;
   cursor: pointer;
+  font-size: 23px;
+  font-weight: 550;
   &&:hover {
     background: black;
     color: white;

@@ -39,7 +39,7 @@ const ProductContainer = styled.div`
 const Title = styled.h1`
   margin-top: 40px;
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 800;
 `;
 
 export default getAllProducts(CategoryComponent, GET_PRODUCTS_BY_CATEGORIES);

@@ -14,7 +14,9 @@ class CartOverlayComponent extends Component {
       showModal: false,
       menuOpen: false,
       setAttribute: [],
+   
     };
+  
   }
   handleAttribute = (e) => {
     this.setState({
@@ -72,7 +74,8 @@ class CartOverlayComponent extends Component {
                       const { attributes } = item;
                       const { prices } = item;
                       const { name } = item;
-                      console.log(item);
+                      const keys = Object.keys(item.selectedAttribute);
+
                       return item.count > 0 ? (
                         <SingleProduct key={index}>
                           <div>
@@ -99,71 +102,38 @@ class CartOverlayComponent extends Component {
                                 <span>{prices[0].amount}</span>
                               </>
                             )}
-                            <div>
-                              {/* {attributes.map((attribute, index) => {
-                                const { name, type, items } = attribute;
+
+                            <ul style={{ display: "flex" }}>
+                              {keys.map((attributeKey) => {
+                                const { value, displayValue } =
+                                  item.selectedAttribute[attributeKey];
+                                const swatchAttribute =
+                                  attributeKey === "Color" ? value : "";
 
                                 return (
-                                  <div key={index}>
-                                    <p>{name}</p>
-                                    {attribute.name === "Color" ? (
-                                      <div style={{ display: "flex" }}>
-                                        {items.map((item) => {
-                                          return (
-                                            <option
-                                              key={item.id}
-                                              name="attribute"
-                                              value={`${item.value}`}
-                                              style={{
-                                                backgroundColor: `${item.value}`,
-                                                width: "30px",
-                                                height: "30px",
-                                                display: "flex",
-                                                margin: "5px",
-                                                cursor: "pointer",
-                                                border: "1px ",
-                                              }}
-                                              onClick={this.handleAttribute.bind(
-                                                this
-                                              )}
-                                            ></option>
-                                          );
-                                        })}
-                                      </div>
-                                    ) : (
-                                      <div style={{ display: "flex" }}>
-                                        {items.map((item) => {
-                                          return (
-                                            <option
-                                              name="attribute"
-                                              value={`${item.value}`}
-                                              key={item.id}
-                                              style={{
-                                                textAlign: "center",
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                                width: "55px",
-                                                height: "35px",
-                                                margin: "5px",
-                                                cursor: "pointer",
-                                                border: "1px solid",
-                                              }}
-                                              onClick={this.handleAttribute.bind(
-                                                this
-                                              )}
-                                            >
-                                              {item.value}
-                                            </option>
-                                          );
-                                        })}
-                                      </div>
+                                  <li
+                                    key={displayValue}
+                                    style={{
+                                      backgroundColor: swatchAttribute,
+                                      textAlign: "center",
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      width: "50px",
+                                      height: "30px",
+                                      margin: "5px",
+                                      cursor: "pointer",
+                                      border: "1px solid",
+                                    }}
+                                  >
+                                    {attributeKey !== "Color" && (
+                                      <span>{value}</span>
                                     )}
-                                  </div>
+                                  </li>
                                 );
-                              })} */}
-                              {item.selectedAttributeId}
-                            </div>
+                              })}
+                            </ul>
                           </div>
                           <div
                             style={{
@@ -231,19 +201,23 @@ const CartContainer = styled.div`
   h3 {
     margin-top: 20px;
     margin-left: 15px;
+    font-weight: 800;
   }
 `;
 const CartContent = styled.div`
   position: absolute;
   width: 100%;
+
   background-color: white;
   z-index: 1;
   right: 50px;
   font-size: 14px;
+  overflow: scroll;
+  height: 400px;
+  font-weight: 800;
 `;
 const SingleProduct = styled.div`
   background-color: white;
-  width: 100%;
   margin-top: 50px;
   margin-left: 15px;
   display: flex;
@@ -253,12 +227,7 @@ const SingleProduct = styled.div`
     height: 100%;
     object-fit: cover;
   }
-  option:hover {
-    background: black;
-    color: white;
-    transition: all 300ms ease;
-  }
-  z-index: 1;
+  justify-content: space-between;
 `;
 const Actions = styled.div`
   display: flex;
@@ -270,6 +239,15 @@ const Button = styled.button`
   height: 30px;
   width: 30px;
   text-align: center;
+  font-size: 20px;
+  background-color: white;
+  border: 1px solid;
+  cursor: pointer;
+  &&:hover {
+    background: black;
+    color: white;
+    transition: all 300ms ease;
+  }
 `;
 const CheckOut = styled.button`
   width: 140px;
@@ -278,6 +256,7 @@ const CheckOut = styled.button`
   color: white;
   border: none;
   cursor: pointer;
+  font-size: 20px;
 `;
 const ViewBag = styled.button`
   width: 140px;
@@ -286,6 +265,8 @@ const ViewBag = styled.button`
   border: solid 1px;
   cursor: pointer;
   margin: 5px;
+  font-size: 18px;
+  font-weight: 600;
 `;
 const CartIcon = styled.div`
   position: relative;
@@ -293,6 +274,7 @@ const CartIcon = styled.div`
     width: 30px;
     height: 30px;
   }
+  cursor: pointer;
   span {
     position: absolute;
     left: 18px;
@@ -306,7 +288,7 @@ const CartIcon = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    font-weight: bold;
+    font-weight: 800;
   }
 `;
 export default CartOverlayComponent;
