@@ -1,6 +1,5 @@
 import React, { Component, createContext } from "react";
 
-
 const CurrencyContext = createContext(true);
 export class CurrencyProvider extends Component {
   state = {

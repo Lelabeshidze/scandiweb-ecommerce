@@ -14,9 +14,7 @@ class CartOverlayComponent extends Component {
       showModal: false,
       menuOpen: false,
       setAttribute: [],
-   
     };
-  
   }
   handleAttribute = (e) => {
     this.setState({
@@ -104,7 +102,7 @@ class CartOverlayComponent extends Component {
                             )}
 
                             <ul style={{ display: "flex" }}>
-                              {keys.map((attributeKey) => {
+                              {keys.map((attributeKey, index) => {
                                 const { value, displayValue } =
                                   item.selectedAttribute[attributeKey];
                                 const swatchAttribute =
@@ -112,7 +110,7 @@ class CartOverlayComponent extends Component {
 
                                 return (
                                   <li
-                                    key={displayValue}
+                                    key={index}
                                     style={{
                                       backgroundColor: swatchAttribute,
                                       textAlign: "center",

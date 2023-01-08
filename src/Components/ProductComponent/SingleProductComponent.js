@@ -39,7 +39,7 @@ class SingleProductComponent extends Component {
           <Carousel>
             <ul>
               {data?.product?.gallery.map((imageUrl, index) => {
-                // console.log(imageUrl);
+             
                 return (
                   <li
                     key={index}

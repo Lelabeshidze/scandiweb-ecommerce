@@ -30,7 +30,6 @@ export class CartProvider extends Component {
       attributesId,
       setAttribute,
     });
-
   };
   // addToCart = (product) => {
   //   const cartItems = this.state.cartItems.slice();
@@ -54,9 +53,11 @@ export class CartProvider extends Component {
   //   this.setState({ totalAmount: totalAmount });
   //   console.log(product)
   // };
-  addToCart =(productObj)=>{
+  addToCart = (productObj) => {
     const existingProductIndex = this.state.cartItems.findIndex(
-      (product) => product.id === productObj.id && product.selectedAttributeId === productObj.selectedAttributeId
+      (product) =>
+        product.id === productObj.id &&
+        product.selectedAttributeId === productObj.selectedAttributeId
     );
     const existingProduct = this.state.cartItems[existingProductIndex];
     let updatedCart;
@@ -74,13 +75,16 @@ export class CartProvider extends Component {
 
     const totalAmount = this.calculateTotalAmount(updatedCart);
     this.setState({ totalAmount: totalAmount });
-  }
+  };
 
   removeFromCart = (product) => {
     const cartItems = this.state.cartItems.slice();
 
     cartItems.forEach((item) => {
-      if (item.id === product.id) {
+      if (
+        item.id === product.id &&
+        item.selectedAttributeId === product.selectedAttributeId
+      ) {
         item.count--;
       }
     });
