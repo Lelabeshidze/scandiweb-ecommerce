@@ -17,7 +17,7 @@ class TechComponent extends Component {
     const { data } = this.props;
     const { selectCurrency } = this.context;
     const { params } = this.props;
-    
+
     // const tech = data.filter((name) => name === categoryName.name);
 
     if (data) {
@@ -45,10 +45,10 @@ class TechComponent extends Component {
                         return (
                           <div key={index}>
                             {price.currency.label === selectCurrency ? (
-                              <div style={{ display: "inline" }}>
-                                <span>{price.currency.symbol}</span>
-                                <span>{price.amount}</span>
-                              </div>
+
+                              <p style={{ display: "inline", fontWeight: "bold" }}>{price.currency.symbol}{price.amount}</p>
+
+
                             ) : (
                               <></>
                             )}
@@ -57,15 +57,10 @@ class TechComponent extends Component {
                       })}
                     </h4>
                     {!selectCurrency && (
-                      <h4
-                        style={{
-                          display: "inline",
-                          marginLeft: "10px",
-                        }}
-                      >
-                        <span>{prices[0].currency.symbol}</span>
-                        <span>{prices[0].amount}</span>
-                      </h4>
+
+                      <p style={{ display: "inline", fontWeight: "bold" }}>{prices[0].currency.symbol}{prices[0].amount}</p>
+
+
                     )}
                   </SingleProduct>
                 </Link>
@@ -79,7 +74,7 @@ class TechComponent extends Component {
                       return (
                         <div key={index}>
                           {price.currency.label === selectCurrency ? (
-                            <div style={{ display: "inline" }}>
+                            <div>
                               <span>{price.currency.symbol}</span>
                               <span>{price.amount}</span>
                             </div>
@@ -94,7 +89,7 @@ class TechComponent extends Component {
                     <h4
                       style={{
                         display: "inline",
-                        marginLeft: "10px",
+
                       }}
                     >
                       <span>{prices[0].currency.symbol}</span>
@@ -111,34 +106,35 @@ class TechComponent extends Component {
     }
   }
 }
-const SingleProduct = styled.div`
-  position: relative;
-  max-width: 700px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
+const SingleProduct = styled.li`
+position: relative;
+width: 100%;
+height: 330px;
+padding: 16px;
+height: 444px;
+transition: 0.3s;
   div img {
     display: none;
   }
   img {
-    width: 95%;
+   
+    width: 100%;
     height: 330px;
     object-fit: cover;
-    align-self: center;
-    align-self: center;
   }
   h4 {
     margin-top: 5px;
-    margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
   }
   p {
-    margin-top: 20px;
-    margin-left: 10px;
+    
+    margin-top: 24px;
+    font-size: 18px;
   }
   &&:hover {
     transition: all 300ms ease;
-    box-shadow: 0 2rem 2rem 2rem rgba(132, 139, 200, 0.18);
+    box-shadow: 0px 4px 15px rgba(168, 172, 176, 0.45);
   }
   &&:hover div img {
     display: block;
@@ -158,11 +154,12 @@ const Title = styled.h1`
   font-weight: 800;
 `;
 const SingleProductOutStck = styled.div`
-  position: relative;
-  max-width: 700px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+position: relative;
+width: 100%;
+height: 330px;
+padding: 16px;
+height: 444px;
+transition: 0.3s;
   opacity: 0.5;
   h3 {
     position: absolute;
@@ -174,20 +171,20 @@ const SingleProductOutStck = styled.div`
   }
  
   img {
-    width: 95%;
+   
+    width: 100%;
     height: 330px;
     object-fit: cover;
-    align-self: center;
-    align-self: center;
-  
   }
   h4 {
     margin-top: 5px;
-    margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
   }
   p {
-    margin-top: 20px;
-    margin-left: 10px;
+    
+    margin-top: 24px;
+    font-size: 18px;
   }
 
 `;

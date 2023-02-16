@@ -10,7 +10,8 @@ a {
   color: black;
 }
 ul,
-ol {
+ol,
+li {
   list-style: none;
 }
 p {
@@ -18,7 +19,6 @@ p {
   color: #1d1f22;
   font-size: 18px;
 }
-
 
 body {
   max-width: 1300px;
