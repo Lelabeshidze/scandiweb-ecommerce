@@ -154,7 +154,7 @@ const ProductContainer = styled.div`
 `;
 const Title = styled.h1`
   margin-top: 40px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-weight: 800;
 `;
 const SingleProductOutStck = styled.div`

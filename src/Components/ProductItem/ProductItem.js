@@ -127,7 +127,7 @@ const SingleProduct = styled.div`
   }
   &&:hover {
     transition: all 300ms ease;
-    box-shadow: 0 2rem 2rem 2rem rgba(132, 139, 200, 0.18);
+    box-shadow: 0 1rem 1rem 1rem rgba(132, 139, 200, 0.18);
   }
   &&:hover div img {
     display: block;

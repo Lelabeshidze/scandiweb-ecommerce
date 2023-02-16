@@ -11,7 +11,7 @@ import ProductItem from "../ProductItem/ProductItem";
 class CategoryComponent extends Component {
   render() {
     const { data } = this.props;
-   
+
     if (data) {
       if (!data.category)
         return <h1 className="error-message">Category not found</h1>;
@@ -38,7 +38,7 @@ const ProductContainer = styled.div`
 `;
 const Title = styled.h1`
   margin-top: 40px;
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-weight: 800;
 `;
 
