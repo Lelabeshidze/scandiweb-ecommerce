@@ -4,8 +4,7 @@ import styled from "styled-components";
 import { GET_PRODUCTS_BY_CATEGORIES } from "../../GraphQL/dataQueries";
 import { getAllProducts } from "../../GraphQL/getAllCategory";
 import Header from "../../Layout/Header";
-import CurrencyContext from "../../Utils/CurrencyContext";
-import { withRouter } from "../../Utils/withRouter";
+import CartContext from "../../Utils/CartContext";
 import ProductItem from "../ProductItem/ProductItem";
 
 class CategoryComponent extends Component {
@@ -21,7 +20,10 @@ class CategoryComponent extends Component {
           <Header />
           <Title>All Products</Title>
           <ProductContainer>
-            <ProductItem />
+            <CartContext.Consumer>
+              {(cartItems) => (<ProductItem cartItems={cartItems} />)}
+
+            </CartContext.Consumer>
           </ProductContainer>
         </>
       );

@@ -23,6 +23,15 @@ export const GET_PRODUCTS_BY_CATEGORIES = gql`
         id
         name
         category
+        attributes {
+          name
+          type
+          items {
+            id
+            displayValue
+            value
+          }
+        }
         prices {
           currency {
             label

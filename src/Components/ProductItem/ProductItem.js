@@ -11,9 +11,17 @@ import CurrencyContext from "../../Utils/CurrencyContext.js";
 
 class ProductItem extends Component {
   static contextType = CurrencyContext;
+  addToCart = (product) => {
+    this.props.cartItems.addToCart({
+      ...product,
+      selectedAttribute: product.attributes[0],
+
+    })
+  }
   render() {
     const { data } = this.props;
     const { selectCurrency } = this.context;
+    const { addToCart } = this.props.cartItems
 
     const { products } = data.category;
 
@@ -21,42 +29,46 @@ class ProductItem extends Component {
       <>
         {products?.map((product, index) => {
           const { prices, inStock } = product;
-
+          console.log(product.attributes)
           return inStock ? (
-            <Link to={`${product.id}/description`} key={index}>
-              <SingleProduct id="Product">
+
+            <SingleProduct id="Product" key={index}>
+              <Link to={`${product.id}/description`}>
                 <img src={product.gallery[0]} alt="img" />
-                <p>{product.name}</p>
-                <CartIcon>
-                  <img src={Cart} alt="cart" />
-                </CartIcon>
-                <h4>
-                  {prices?.map((price, index) => {
-                    return (
-                      <div key={index}>
-                        {price.currency.label === selectCurrency ? (
+              </Link>
+              <p>{product.name}</p>
+              <CartIcon onClick={() => this.addToCart(product)}>
+                <img src={Cart} alt="cart" />
+              </CartIcon>
+              <h4>
+                {prices?.map((price, index) => {
+                  return (
+                    <div key={index}>
+                      {price.currency.label === selectCurrency ? (
 
-                          <span>{price.currency.symbol}{price.amount}</span>
-
-
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-                    );
-                  })}
-                </h4>
-                {!selectCurrency && (
-
-                  <span style={{ fontWeight: "1000", fontSize: "18px" }}>{prices[0].currency.symbol}{prices[0].amount}</span>
+                        <span>{price.currency.symbol}{price.amount}</span>
 
 
-                )}
-              </SingleProduct>
-            </Link>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                  );
+                })}
+              </h4>
+              {!selectCurrency && (
+
+                <span style={{ fontWeight: "1000", fontSize: "18px" }}>{prices[0].currency.symbol}{prices[0].amount}</span>
+
+
+              )}
+            </SingleProduct>
+
           ) : (
             <SingleProductOutStck key={index}>
-              <img src={product.gallery[0]} alt="img" />
+              <Link to={`${product.id}/description`} key={index}>
+                <img src={product.gallery[0]} alt="img" />
+              </Link>
               <p>{product.name}</p>
 
               <h4>
@@ -99,7 +111,6 @@ const SingleProduct = styled.li`
 
   position: relative;
   width: 100%;
-  height: 330px;
   padding: 16px;
   height: 444px;
   transition: 0.3s;
@@ -174,6 +185,7 @@ const CartIcon = styled.div`
     width: 60px;
     height: 60px;
     transform: translate(-50%, -50%);
+    cursor:pointer;
   }
 `;
 

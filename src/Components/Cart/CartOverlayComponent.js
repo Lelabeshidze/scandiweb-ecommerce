@@ -75,6 +75,8 @@ class CartOverlayComponent extends Component {
                       const keys = Object.keys(item.selectedAttribute);
 
                       return item.count > 0 ? (
+
+                        
                         <SingleProduct key={index}>
                           <div>
                             <p>{name}</p>
