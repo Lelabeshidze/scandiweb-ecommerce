@@ -47,7 +47,7 @@ class CartOverlayComponent extends Component {
     const { cartItems, addToCart, removeFromCart, totalAmount } =
       this.props.cartItems;
 
-    const { selectCurrency } = this.context;
+    const { selectedCurrency } = this.context;
 
     if (this.state.showModal) {
       document.getElementById("root").classList.add("Overlay");
@@ -84,7 +84,7 @@ class CartOverlayComponent extends Component {
                               {prices?.map((price, index) => {
                                 return (
                                   <div key={index}>
-                                    {price.currency.label === selectCurrency ? (
+                                    {price.currency.label === selectedCurrency ? (
                                       <>
                                         <span>{price.currency.symbol}</span>
                                         <span>{price.amount}</span>
@@ -96,7 +96,7 @@ class CartOverlayComponent extends Component {
                                 );
                               })}
                             </h4>
-                            {!selectCurrency && (
+                            {!selectedCurrency && (
                               <>
                                 <span>{prices[0].currency.symbol}</span>
                                 <span>{prices[0].amount}</span>

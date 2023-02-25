@@ -20,7 +20,7 @@ class ProductItem extends Component {
   }
   render() {
     const { data } = this.props;
-    const { selectCurrency } = this.context;
+    const { selectedCurrency } = this.context;
     const { addToCart } = this.props.cartItems
 
     const { products } = data.category;
@@ -44,7 +44,7 @@ class ProductItem extends Component {
                 {prices?.map((price, index) => {
                   return (
                     <div key={index}>
-                      {price.currency.label === selectCurrency ? (
+                      {price.currency.label === selectedCurrency ? (
 
                         <span>{price.currency.symbol}{price.amount}</span>
 
@@ -56,7 +56,7 @@ class ProductItem extends Component {
                   );
                 })}
               </h4>
-              {!selectCurrency && (
+              {!selectedCurrency && (
 
                 <span style={{ fontWeight: "1000", fontSize: "18px" }}>{prices[0].currency.symbol}{prices[0].amount}</span>
 
@@ -75,7 +75,7 @@ class ProductItem extends Component {
                 {prices?.map((price, index) => {
                   return (
                     <div key={index}>
-                      {price.currency.label === selectCurrency ? (
+                      {price.currency.label === selectedCurrency ? (
                         <div style={{ display: "inline" }}>
                           <span>{price.currency.symbol}</span>
                           <span>{price.amount}</span>
@@ -87,7 +87,7 @@ class ProductItem extends Component {
                   );
                 })}
               </h4>
-              {!selectCurrency && (
+              {!selectedCurrency && (
                 <h4
                   style={{
                     display: "inline",
@@ -180,10 +180,10 @@ transition: 0.3s;
 const CartIcon = styled.div`
   img {
     position: absolute;
-    top: 80%;
-    left: 90%;
-    width: 60px;
-    height: 60px;
+    top: 78%;
+    left: 87%;
+    width: 70px;
+    height: 70px;
     transform: translate(-50%, -50%);
     cursor:pointer;
   }

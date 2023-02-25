@@ -20,7 +20,7 @@ class CartComponent extends Component {
   render() {
     const { cartItems, addToCart, removeFromCart, totalAmount } =
       this.props.cartItems;
-    const { selectCurrency } = this.context;
+    const { selectedCurrency } = this.context;
     return (
       <div>
         <Header />
@@ -47,7 +47,7 @@ class CartComponent extends Component {
                         {prices?.map((price, index) => {
                           return (
                             <div key={index}>
-                              {price.currency.label === selectCurrency ? (
+                              {price.currency.label === selectedCurrency ? (
                                 <>
                                   <span>{price.currency.symbol}</span>
                                   <span>{price.amount}</span>
@@ -59,7 +59,7 @@ class CartComponent extends Component {
                           );
                         })}
                       </h4>
-                      {!selectCurrency && (
+                      {!selectedCurrency && (
                         <h4>
                           <span>{prices[0].currency.symbol}</span>
                           <span>{prices[0].amount}</span>

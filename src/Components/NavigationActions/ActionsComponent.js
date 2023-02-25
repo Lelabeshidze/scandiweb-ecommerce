@@ -9,51 +9,75 @@ class ActionsComponent extends Component {
   constructor() {
     super();
     this.state = {
-      currentCurrency: this.context?.selectCurrency,
+      currentCurrency: this.context?.selectedCurrency,
     };
   }
-  onSelectChange = (event) => {
-    this.context.onChange(event);
+  onSelectChange = (currency) => {
+    this.context.onChange(currency);
+
   };
-  onSelect = (currency) => {
-    this.context.OnselectCurrency(currency);
-  };
+  // onSelect = (currency) => {
+  //   this.context.OnselectCurrency(currency);
+  // };
   render() {
     const { data } = this.props;
 
     const { cartItems, totalAmount } = this.props.cartItems;
 
-    return (
-      <CurrenciesContainer>
-        <select name="currency" onChange={this.onSelectChange.bind(this)}>
-          {data?.currencies?.map((currency, index) => {
-            return (
-              <option key={index} value={currency.label}>
-                {currency.symbol}
-              </option>
-            );
-          })}
-        </select>
-        <CartOverlayPage />
-      </CurrenciesContainer>
-    );
+    if (data) {
+      return (
+        <CurrenciesContainer>
+          <ul name="currency" >
+            {data?.currencies?.map((currency, index) => {
+              return (
+                <li key={index} onClick={() => this.onSelectChange(currency)}>
+                  {currency.symbol}
+                </li>
+              );
+            })}
+          </ul>
+          <CartOverlayPage />
+        </CurrenciesContainer>
+      );
+    }
   }
 }
 const CurrenciesContainer = styled.div`
   display: flex;
   
-  select {
+ 
+ 
+ ul{
+  width: 114px;
+  font-size: 18px;
+  background-color: #fff;
+  animation: showCurrencies 0.45s 1;
+  border:none;
+  cursor:pointer;
+
+
+ }
+  li{
     cursor: pointer;
-    margin-right: 25px;
-    border: none;
-    font-size: 18px;
-    font-weight: 600;
-    option {
-      cursor: pointer;
-      font-size: 18px;
-      font-weight: 600;
+ 
+  }
+  li:hover {
+    color: #5ece7b;
+  }
+  li:not(:last-child) {
+    padding-bottom: 21px;
+  }
+
+  @keyframes showCurrencies {
+    0% {
+      top: 50px;
+      opacity: 0;
+    }
+    100% {
+      top: 30px;
     }
   }
+ 
 `;
 
 export default getData(ActionsComponent, GET_CURRENCIES);

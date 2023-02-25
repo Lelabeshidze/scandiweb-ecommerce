@@ -28,7 +28,7 @@ class SingleProductComponent extends Component {
   };
   render() {
     const { data, currency } = this.props;
-    const { selectCurrency } = currency;
+    const { selectedCurrency } = currency;
     const { cartItems, addToCart, changeAttribute, setAttribute } =
       this.context;
 
@@ -140,11 +140,11 @@ class SingleProductComponent extends Component {
               );
             })}
             <div style={{ fontWeight: "bold" }}>
-              {selectCurrency ? (
+              {selectedCurrency ? (
                 data?.product?.prices?.map((price, index) => {
                   return (
                     <span key={index}>
-                      {price.currency.label === selectCurrency ? (
+                      {price.currency.label === selectedCurrency ? (
                         <>
                           <p>PRICE:</p>
                           <span>{price.currency.symbol}</span>
