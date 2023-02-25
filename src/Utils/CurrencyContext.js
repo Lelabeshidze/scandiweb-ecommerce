@@ -7,9 +7,18 @@ export class CurrencyProvider extends Component {
     selectedCurrencySymbol: null,
   };
 
-  onSelectChange = (event) => {
-    this.setState({ selectCurrency: event.target.value });
-  };
+  // onSelectChange = (event) => {
+  //   this.setState({ selectCurrency: event.target.value });
+  // };
+  componentDidMount() {
+
+    const currency = this.getLocalStorage();
+    this.setState({
+      selectedCurrency: currency.label,
+      selectedCurrencySymbol: currency.symbol,
+    });
+
+  }
   setLocalStorage = (currency) => {
     localStorage.setItem(
       "currency",

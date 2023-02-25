@@ -10,74 +10,114 @@ class ActionsComponent extends Component {
     super();
     this.state = {
       currentCurrency: this.context?.selectedCurrency,
+      show: false,
     };
   }
   onSelectChange = (currency) => {
     this.context.onChange(currency);
+    this.clickHandler()
 
   };
   // onSelect = (currency) => {
   //   this.context.OnselectCurrency(currency);
   // };
+  clickHandler = () => {
+    this.setState({
+      show: !this.state.show,
+    });
+  };
   render() {
     const { data } = this.props;
+    const { show } = this.state;
 
     const { cartItems, totalAmount } = this.props.cartItems;
-
+    const { selectedCurrency } = this.context;
+    console.log(selectedCurrency)
     if (data) {
       return (
-        <CurrenciesContainer>
-          <ul name="currency" >
-            {data?.currencies?.map((currency, index) => {
-              return (
-                <li key={index} onClick={() => this.onSelectChange(currency)}>
-                  {currency.symbol}
-                </li>
-              );
-            })}
-          </ul>
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          textAlign: "center",
+          alignItems: "center"
+
+        }}>
+
+          <div onClick={this.clickHandler} style={{ position: "relative", paddingRight: "20px" }}>
+            <span style={{
+              margin: " 28px 16px",
+              fontSize: "18px",
+              color: "#1d1f22",
+              cursor: "pointer",
+              fontWeight: "900"
+            }}>
+              {selectedCurrency}
+            </span>
+            {
+              show &&
+              <CurrenciesContainer>
+                <ul name="currency" >
+                  {data?.currencies?.map((currency, index) => {
+                    return (
+                      <li key={index} onClick={() => this.onSelectChange(currency)} className="LastCHild">
+                        <span>{currency.symbol}</span>
+                        <span>{currency.label}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+
+              </CurrenciesContainer>
+            }
+          </div>
+
+
+
           <CartOverlayPage />
-        </CurrenciesContainer>
+        </div>
       );
     }
   }
 }
+
 const CurrenciesContainer = styled.div`
-  display: flex;
-  
- 
- 
- ul{
+
+ul{
+  position: absolute;
+  padding: 20px;
+  top: 30px;
   width: 114px;
   font-size: 18px;
   background-color: #fff;
   animation: showCurrencies 0.45s 1;
-  border:none;
-  cursor:pointer;
-
-
- }
-  li{
-    cursor: pointer;
- 
+  box-shadow: 0px 4px 15px rgb(168 172 176 / 45%);
+  font-weight: 900;
+  z-index: 1;
+}
+          li{
+            cursor: pointer;
+            font-weight: 900;
+            display:flex;
+            justify-content:space-evenly;
+           
   }
-  li:hover {
-    color: #5ece7b;
-  }
-  li:not(:last-child) {
-    padding-bottom: 21px;
+          li:hover {
+            color: #5ece7b;
   }
 
-  @keyframes showCurrencies {
-    0% {
-      top: 50px;
-      opacity: 0;
-    }
+  li:not(:last-child){
+            padding-bottom: 21px;
+  }
+         @keyframes showCurrencies {
+            0 % {
+              top: 50px;
+              opacity: 0;
+            }
     100% {
-      top: 30px;
+            top: 30px;
     }
   }
- 
-`;
+
+          `;
 
 export default getData(ActionsComponent, GET_CURRENCIES);
