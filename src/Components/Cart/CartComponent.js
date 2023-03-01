@@ -75,7 +75,7 @@ class CartComponent extends Component {
 
                         return (
                           <li
-                            key={displayValue}
+                            key={attributeKey}
                             style={{
                               backgroundColor: swatchAttribute,
                               textAlign: "center",

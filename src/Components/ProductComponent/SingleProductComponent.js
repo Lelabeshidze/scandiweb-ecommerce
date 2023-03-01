@@ -28,10 +28,13 @@ class SingleProductComponent extends Component {
   };
   render() {
     const { data, currency } = this.props;
+
     const { selectedCurrency } = currency;
     const { cartItems, addToCart, changeAttribute, setAttribute } =
       this.context;
-
+    const objectKeys = Object.keys(setAttribute);
+    const canAddToCart = this.props.data?.product.attributes.length === objectKeys.length;
+    console.log(this.props.data?.product.attributes.length)
     return (
       <div>
         <Header />
@@ -39,7 +42,7 @@ class SingleProductComponent extends Component {
           <Carousel>
             <ul>
               {data?.product?.gallery.map((imageUrl, index) => {
-             
+
                 return (
                   <li
                     key={index}
@@ -73,12 +76,12 @@ class SingleProductComponent extends Component {
               return (
                 <div key={index}>
                   <h3>{name}</h3>
-                  {attribute.name === "Color" ? (
+                  {type === "swatch" ? (
                     <div style={{ display: "flex" }}>
                       {items.map((item) => {
                         const { value, displayValue } = item;
                         return (
-                          <option
+                          <p
                             key={item.id}
                             name="attribute"
                             value={`${item.value}`}
@@ -98,7 +101,7 @@ class SingleProductComponent extends Component {
                                 displayValue,
                               })
                             }
-                          ></option>
+                          ></p>
                         );
                       })}
                     </div>
@@ -107,7 +110,7 @@ class SingleProductComponent extends Component {
                       {items.map((item) => {
                         const { value, displayValue } = item;
                         return (
-                          <option
+                          <p
                             name="attribute"
                             value={`${item.value}`}
                             key={item.id}
@@ -131,7 +134,7 @@ class SingleProductComponent extends Component {
                             }
                           >
                             {item.value}
-                          </option>
+                          </p>
                         );
                       })}
                     </div>
@@ -146,7 +149,7 @@ class SingleProductComponent extends Component {
                     <span key={index}>
                       {price.currency.label === selectedCurrency ? (
                         <>
-                          <p>PRICE:</p>
+                          <h3>PRICE:</h3>
                           <span>{price.currency.symbol}</span>
                           <span>{price.amount}</span>
                         </>
@@ -158,23 +161,26 @@ class SingleProductComponent extends Component {
                 })
               ) : (
                 <>
-                  <p>PRICE:</p>
+                  <h3>PRICE:</h3>
                   <span>{data?.product?.prices[0].currency.symbol}</span>
                   <span>{data?.product?.prices[0].amount}</span>
                 </>
               )}
             </div>
 
-            {data?.product?.attributes.length > 0 &&
-            setAttribute.length === 0 ? (
-              <ButtonDisabled onClick={() => addToCart(data?.product)} disabled>
-                Select Attribute
+            {
+              this.props.data?.product.inStock && !canAddToCart ? (
+                <ButtonDisabled disabled>
+                  Select Attribute
+                </ButtonDisabled>
+              ) : !this.props.data?.product.inStock ? <ButtonDisabled disabled>
+                Out Of Stock
               </ButtonDisabled>
-            ) : (
-              <Button onClick={() => this.onAddToCart(data?.product)}>
-                Add to cart
-              </Button>
-            )}
+                : (
+                  <Button onClick={() => this.onAddToCart(data?.product)}>
+                    Add to cart
+                  </Button>
+                )}
           </ProductContent>
         </SingleProduct>
       </div>
@@ -224,12 +230,14 @@ const ProductContent = styled.div`
     }
     li {
       padding-top: 15px;
+     
     }
   }
-  option:hover {
+  p:hover {
     background: black;
     color: white;
     transition: all 300ms ease;
+  
   }
 `;
 const Carousel = styled.div`

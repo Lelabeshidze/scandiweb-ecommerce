@@ -1,5 +1,6 @@
 import React, { Component, createContext } from "react";
-
+import { client } from "../GraphQL/apolloClient"
+import { GET_CURRENCIES } from "../GraphQL/dataQueries";
 const CurrencyContext = createContext(true);
 export class CurrencyProvider extends Component {
   state = {
@@ -10,15 +11,38 @@ export class CurrencyProvider extends Component {
   // onSelectChange = (event) => {
   //   this.setState({ selectCurrency: event.target.value });
   // };
+  // componentDidMount() {
+
+  //   const currency = this.getLocalStorage();
+  //   this.setState({
+  //     selectedCurrency: currency.label,
+  //     selectedCurrencySymbol: currency.symbol,
+  //   });
+
+  // }
+
   componentDidMount() {
-
-    const currency = this.getLocalStorage();
-    this.setState({
-      selectedCurrency: currency.label,
-      selectedCurrencySymbol: currency.symbol,
-    });
-
+    client
+      .query({ query: GET_CURRENCIES })
+      .then((result) => {
+        if (!localStorage.getItem("currency")) {
+          const currency = result.data.currencies[0];
+          console.log(currency)
+          this.setState({
+            selectedCurrency: currency.label,
+            selectedCurrencySymbol: currency.symbol,
+          });
+        } else {
+          const currency = this.getLocalStorage();
+          this.setState({
+            selectedCurrency: currency.label,
+            selectedCurrencySymbol: currency.symbol,
+          });
+        }
+      })
+      .catch((error) => this.setState({ error: error.message }));
   }
+
   setLocalStorage = (currency) => {
     localStorage.setItem(
       "currency",
@@ -40,10 +64,10 @@ export class CurrencyProvider extends Component {
     const { children } = this.props;
 
     const onChange = this.onSelectCurrency;
-    const { selectedCurrency } = this.state;
+    const { selectedCurrency,selectedCurrencySymbol } = this.state;
 
     return (
-      <CurrencyContext.Provider value={{ selectedCurrency, onChange }}>
+      <CurrencyContext.Provider value={{ selectedCurrency,selectedCurrencySymbol, onChange }}>
         {children}
       </CurrencyContext.Provider>
     );

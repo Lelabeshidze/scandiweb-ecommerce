@@ -31,8 +31,9 @@ class ActionsComponent extends Component {
     const { show } = this.state;
 
     const { cartItems, totalAmount } = this.props.cartItems;
-    const { selectedCurrency } = this.context;
-    console.log(selectedCurrency)
+    const { selectedCurrency,selectedCurrencySymbol } = this.context;
+console.log(this.context)
+  
     if (data) {
       return (
         <div style={{
@@ -51,7 +52,7 @@ class ActionsComponent extends Component {
               cursor: "pointer",
               fontWeight: "900"
             }}>
-              {selectedCurrency}
+              {selectedCurrencySymbol}
             </span>
             {
               show &&

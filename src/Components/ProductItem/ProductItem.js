@@ -29,7 +29,7 @@ class ProductItem extends Component {
       <>
         {products?.map((product, index) => {
           const { prices, inStock } = product;
-          console.log(product.attributes)
+       
           return inStock ? (
 
             <SingleProduct id="Product" key={index}>
