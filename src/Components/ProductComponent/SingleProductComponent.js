@@ -182,10 +182,12 @@ class SingleProductComponent extends Component {
   }
 }
 const SingleProduct = styled.div`
-  display: flex;
-  justify-content: space-between;
+  // display: flex;
+  // justify-content: space-between;
   margin-top: 100px;
-
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 30px;
   img {
     width: 100%;
     height: 330px;
