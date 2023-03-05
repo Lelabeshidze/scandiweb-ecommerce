@@ -32,7 +32,7 @@ class ActionsComponent extends Component {
 
     const { cartItems, totalAmount } = this.props.cartItems;
     const { selectedCurrency,selectedCurrencySymbol } = this.context;
-console.log(this.context)
+
   
     if (data) {
       return (

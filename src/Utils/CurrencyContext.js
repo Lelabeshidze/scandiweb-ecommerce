@@ -27,7 +27,7 @@ export class CurrencyProvider extends Component {
       .then((result) => {
         if (!localStorage.getItem("currency")) {
           const currency = result.data.currencies[0];
-          console.log(currency)
+         
           this.setState({
             selectedCurrency: currency.label,
             selectedCurrencySymbol: currency.symbol,

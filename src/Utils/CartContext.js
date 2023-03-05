@@ -9,6 +9,7 @@ export class CartProvider extends Component {
     cartItems: this.cart,
     totalAmount: 0,
     setAttribute: [],
+    selected: false,
     attributesId: "",
   };
 
@@ -29,7 +30,11 @@ export class CartProvider extends Component {
     this.setState({
       attributesId,
       setAttribute,
+
     });
+    this.setState(prevState => ({
+      selected: !prevState.selected
+    }));
   };
   // addToCart = (product) => {
   //   const cartItems = this.state.cartItems.slice();
@@ -105,7 +110,7 @@ export class CartProvider extends Component {
 
   render() {
     const { children } = this.props;
-    const { cartItems, totalAmount, setAttribute, attributesId } = this.state;
+    const { cartItems, totalAmount, setAttribute, attributesId, selected } = this.state;
     const changeAttribute = this.handleAttribute;
     const addToCart = this.addToCart;
     const removeFromCart = this.removeFromCart;
@@ -119,6 +124,7 @@ export class CartProvider extends Component {
           changeAttribute,
           setAttribute,
           attributesId,
+          selected
         }}
       >
         {children}

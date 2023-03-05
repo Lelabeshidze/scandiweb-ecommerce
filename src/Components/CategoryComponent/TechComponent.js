@@ -16,7 +16,7 @@ class TechComponent extends Component {
   addToCart = (product) => {
     this.props.cartItems.addToCart({
       ...product,
-      selectedAttribute: product.attributes[0],
+      selectedAttribute: product.attributes[0]?.items[0],
 
     })
   }

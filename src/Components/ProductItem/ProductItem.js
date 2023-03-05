@@ -11,13 +11,15 @@ import CurrencyContext from "../../Utils/CurrencyContext.js";
 
 class ProductItem extends Component {
   static contextType = CurrencyContext;
+
   addToCart = (product) => {
     this.props.cartItems.addToCart({
       ...product,
-      selectedAttribute: product.attributes[0],
-
+      selectedAttribute: product.attributes[0]?.items[0],
     })
+
   }
+
   render() {
     const { data } = this.props;
     const { selectedCurrency } = this.context;
@@ -28,8 +30,8 @@ class ProductItem extends Component {
     return (
       <>
         {products?.map((product, index) => {
-          const { prices, inStock } = product;
-       
+          const { prices, inStock, attributes } = product;
+          // console.log(attributes[0]?.items[0])
           return inStock ? (
 
             <SingleProduct id="Product" key={index}>

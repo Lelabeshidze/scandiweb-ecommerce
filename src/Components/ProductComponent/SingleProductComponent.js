@@ -30,11 +30,16 @@ class SingleProductComponent extends Component {
     const { data, currency } = this.props;
 
     const { selectedCurrency } = currency;
-    const { cartItems, addToCart, changeAttribute, setAttribute } =
+    const { cartItems, addToCart, changeAttribute, setAttribute, selected, attributesId } =
       this.context;
     const objectKeys = Object.keys(setAttribute);
     const canAddToCart = this.props.data?.product.attributes.length === objectKeys.length;
-    console.log(this.props.data?.product.attributes.length)
+    //  console.log(cartItems.map(item=> console.log(item.selectedAttribute.displayValue)))
+
+    const objectValues = Object.values(setAttribute)
+    // console.log(objectValues.map((itemof) => console.log(itemof.value)))
+    // console.log(objectKeys)
+
     return (
       <div>
         <Header />
@@ -80,21 +85,25 @@ class SingleProductComponent extends Component {
                     <div style={{ display: "flex" }}>
                       {items.map((item) => {
                         const { value, displayValue } = item;
+                        const attributeSelected = setAttribute[name]?.displayValue === displayValue;
                         return (
                           <p
                             key={item.id}
                             name="attribute"
                             value={`${item.value}`}
+                            className={attributeSelected ? "selected" : "unselected"}
+
                             style={{
                               backgroundColor: `${item.value}`,
-                              width: "30px",
-                              height: "30px",
-                              display: "flex",
-                              margin: "5px",
-                              cursor: "pointer",
-                              border: "1px ",
-                              fontWeight: "500",
+                              // width: "30px",
+                              // height: "30px",
+                              // display: "flex",
+                              // margin: "5px",
+                              // cursor: "pointer",
+                              // border: "1px ",
+                              // fontWeight: "500",
                             }}
+
                             onClick={() =>
                               changeAttribute(attribute.name, {
                                 value,
@@ -109,23 +118,27 @@ class SingleProductComponent extends Component {
                     <div style={{ display: "flex" }}>
                       {items.map((item) => {
                         const { value, displayValue } = item;
+                        const attributeSelected = setAttribute[name]?.displayValue === displayValue;
+
                         return (
                           <p
+                            className={attributeSelected ? "selected" : "unselected"}
+
                             name="attribute"
                             value={`${item.value}`}
                             key={item.id}
-                            style={{
-                              textAlign: "center",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              width: "55px",
-                              height: "35px",
-                              margin: "5px",
-                              cursor: "pointer",
-                              border: "1px solid",
-                              fontWeight: "800",
-                            }}
+                            // style={{
+                            //   textAlign: "center",
+                            //   display: "flex",
+                            //   justifyContent: "center",
+                            //   alignItems: "center",
+                            //   width: "55px",
+                            //   height: "35px",
+                            //   margin: "5px",
+                            //   cursor: "pointer",
+                            //   border: "1px solid",
+                            //   fontWeight: "800",
+                            // }}
                             onClick={() =>
                               changeAttribute(attribute.name, {
                                 value,
@@ -224,6 +237,7 @@ const ProductContent = styled.div`
     text-align: justify;
     p {
       margin-top: 10px;
+  
     }
     h3 {
       margin-top: 15px;
@@ -238,6 +252,33 @@ const ProductContent = styled.div`
     color: white;
     transition: all 300ms ease;
   
+  }
+  p.selected{
+    text-align: center;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+    height: 35px;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid;
+    font-weight: 800;
+    background-color:black;
+    color:white;
+  }
+  p.unselected{
+    text-align: center;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    width: 55px;
+    height: 35px;
+    margin: 5px;
+    cursor: pointer;
+    border: 1px solid;
+    font-weight: 800;
+   
   }
 `;
 const Carousel = styled.div`
