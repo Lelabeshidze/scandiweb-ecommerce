@@ -6,6 +6,7 @@ export class CurrencyProvider extends Component {
   state = {
     selectedCurrency: null,
     selectedCurrencySymbol: null,
+    error: null
   };
 
   // onSelectChange = (event) => {
@@ -27,11 +28,12 @@ export class CurrencyProvider extends Component {
       .then((result) => {
         if (!localStorage.getItem("currency")) {
           const currency = result.data.currencies[0];
-         
+
           this.setState({
             selectedCurrency: currency.label,
             selectedCurrencySymbol: currency.symbol,
           });
+
         } else {
           const currency = this.getLocalStorage();
           this.setState({
@@ -64,10 +66,10 @@ export class CurrencyProvider extends Component {
     const { children } = this.props;
 
     const onChange = this.onSelectCurrency;
-    const { selectedCurrency,selectedCurrencySymbol } = this.state;
+    const { selectedCurrency, selectedCurrencySymbol } = this.state;
 
     return (
-      <CurrencyContext.Provider value={{ selectedCurrency,selectedCurrencySymbol, onChange }}>
+      <CurrencyContext.Provider value={{ selectedCurrency, selectedCurrencySymbol, onChange }}>
         {children}
       </CurrencyContext.Provider>
     );

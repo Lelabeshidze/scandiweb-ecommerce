@@ -5,18 +5,9 @@ import DOMPurify from "dompurify";
 import CurrencyContext from "../../Utils/CurrencyContext";
 class CartComponent extends Component {
   static contextType = CurrencyContext;
-  constructor() {
-    super();
-    this.state = {
-      setAttribute: [],
-    };
-  }
 
-  handleAttribute = (e) => {
-    this.setState({
-      setAttribute: [...this.state.setAttribute, e.target.value],
-    });
-  };
+
+
   render() {
     const { cartItems, addToCart, removeFromCart, totalAmount } =
       this.props.cartItems;
@@ -71,7 +62,7 @@ class CartComponent extends Component {
                         const { value, displayValue } =
                           item.selectedAttribute[attributeKey];
                         const swatchAttribute =
-                          attributeKey === "Color" ? value : "";
+                          attributeKey === "Color" ? value : "black";
 
                         return (
                           <li
@@ -83,15 +74,17 @@ class CartComponent extends Component {
                               flexDirection: "column",
                               justifyContent: "center",
                               alignItems: "center",
-                              width: "55px",
+                              width: "60px",
                               height: "35px",
-                              margin: "5px",
+                              marginTop: "15px",
+                              marginRight: "8px",
                               cursor: "pointer",
                               border: "1px solid",
-                              fontWeight:"600"
+                              fontWeight: "600",
+                              fontSize: "20px"
                             }}
                           >
-                            {attributeKey !== "Color" && <span>{value}</span>}
+                            {attributeKey !== "Color" && <span style={{ color: "white" }}>{value}</span>}
                           </li>
                         );
                       })}
@@ -113,7 +106,9 @@ class CartComponent extends Component {
             <p>
               Quantity:{" "}
               <span style={{ fontWeight: "bold" }}>{totalAmount}</span>{" "}
+
             </p>
+            <ButtonOrder>Order</ButtonOrder>
           </div>
         ) : (
           <div>The cart is empty</div>
@@ -137,7 +132,8 @@ const SingleProduct = styled.div`
     margin-top: 10px;
   }
   h4 {
-    margin-top: 10px;
+    margin-top: 15px;
+    font-size:20px;
   }
 `;
 const Button = styled.button`
@@ -154,6 +150,16 @@ const Button = styled.button`
     color: white;
     transition: all 300ms ease;
   }
+`;
+const ButtonOrder = styled.button`
+  width: 210px;
+  height: 45px;
+  background-color: #5ece7b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 25px;
+  font-size:20px;
 `;
 const Actions = styled.div`
   display: flex;

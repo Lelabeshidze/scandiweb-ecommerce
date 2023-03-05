@@ -73,14 +73,13 @@ class CartOverlayComponent extends Component {
                       const { prices } = item;
                       const { name } = item;
                       const keys = Object.keys(item.selectedAttribute);
-                    
+
                       return item.count > 0 ? (
 
 
                         <SingleProduct key={index}>
-                          <div>
+                          <div className="ItemDesc">
                             <p>{name}</p>
-                            <p>{item.selectedAttribute.value}</p>
                             <h4>
                               {prices?.map((price, index) => {
                                 return (
@@ -109,7 +108,7 @@ class CartOverlayComponent extends Component {
                                 const { value, displayValue } =
                                   item.selectedAttribute[attributeKey];
                                 const swatchAttribute =
-                                  attributeKey === "Color" ? value : "";
+                                  attributeKey === "Color" ? value : "black";
 
                                 return (
                                   <li
@@ -121,15 +120,18 @@ class CartOverlayComponent extends Component {
                                       flexDirection: "column",
                                       justifyContent: "center",
                                       alignItems: "center",
-                                      width: "50px",
+                                      width: "60px",
                                       height: "30px",
-                                      margin: "5px",
+                                      marginTop: "10px",
+                                      marginRight: "10px",
                                       cursor: "pointer",
                                       border: "1px solid",
                                     }}
                                   >
                                     {attributeKey !== "Color" && (
-                                      <span>{value}</span>
+                                      <span style={{
+                                        color: "white"
+                                      }}>{value}</span>
                                     )}
                                   </li>
                                 );
@@ -202,7 +204,9 @@ const CartContainer = styled.div`
   h3 {
     margin-top: 20px;
     margin-left: 15px;
-    font-weight: 800;
+    font-weight: 700;
+    display: flex;
+    
   }
 `;
 const CartContent = styled.div`
@@ -229,6 +233,17 @@ const SingleProduct = styled.div`
     object-fit: cover;
   }
   justify-content: space-between;
+  .ItemDesc{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding:10px;
+    font-size:18px;
+    h4{
+      padding-top: 10px;
+    }
+   
+  }
 `;
 const Actions = styled.div`
   display: flex;

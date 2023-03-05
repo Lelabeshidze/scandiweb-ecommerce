@@ -8,14 +8,16 @@ import CategoryPage from "./Pages/CategoryPage";
 import ClothesPage from "./Pages/ClothesPage";
 import TechPage from "./Pages/TechPage";
 import CurrencyContext from "./Utils/CurrencyContext";
+import { withRouter } from "./Utils/withRouter";
 
 class App extends Component {
   render() {
+
     return (
       <div>
         <CurrencyContext.Consumer>
           {(currency) => (
-            <Routes>
+            <Routes >
               <Route path="/" element={<CategoryPage categoryName="all" />} />
               <Route path="/all" element={<Navigate to="/" />} />
               <Route path="/tech" element={<TechPage />} />
@@ -41,4 +43,4 @@ class App extends Component {
   }
 }
 
-export default getAllProducts(App, GET_PRODUCTS_BY_CATEGORIES);
+export default withRouter(getAllProducts(App, GET_PRODUCTS_BY_CATEGORIES));

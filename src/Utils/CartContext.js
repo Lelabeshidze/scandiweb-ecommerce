@@ -8,7 +8,7 @@ export class CartProvider extends Component {
   state = {
     cartItems: this.cart,
     totalAmount: 0,
-    setAttribute: [],
+    setAttribute: {},
     selected: false,
     attributesId: "",
   };
@@ -80,6 +80,7 @@ export class CartProvider extends Component {
 
     const totalAmount = this.calculateTotalAmount(updatedCart);
     this.setState({ totalAmount: totalAmount });
+    this.setState({ setAttribute: {} })
   };
 
   removeFromCart = (product) => {

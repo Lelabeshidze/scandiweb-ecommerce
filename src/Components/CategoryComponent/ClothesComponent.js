@@ -10,11 +10,14 @@ import Cart from "../../Assets/Circle Icon.svg";
 class ClothesComponent extends Component {
   static contextType = CurrencyContext;
   addToCart = (product) => {
+
     this.props.cartItems.addToCart({
       ...product,
-      selectedAttribute: product.attributes[0]?.items[0],
+      selectedAttribute: { name: { value: Object.values(product.attributes)[0].items[0].value, displayValue: Object.values(product.attributes)[0].items[0].displayValue } }
 
     })
+
+
   }
   render() {
     const { data } = this.props;

@@ -14,17 +14,20 @@ import Cart from "../../Assets/Circle Icon.svg";
 class TechComponent extends Component {
   static contextType = CurrencyContext;
   addToCart = (product) => {
+
     this.props.cartItems.addToCart({
       ...product,
-      selectedAttribute: product.attributes[0]?.items[0],
+      selectedAttribute: { name: { value: Object.values(product.attributes)[0].items[0].value, displayValue: Object.values(product.attributes)[0].items[0].displayValue } }
 
     })
+
+
   }
   render() {
     const { data } = this.props;
     const { selectedCurrency } = this.context;
     const { addToCart } = this.props.cartItems
-    // const tech = data.filter((name) => name === categoryName.name);
+ 
 
     if (data) {
       if (!data.category)

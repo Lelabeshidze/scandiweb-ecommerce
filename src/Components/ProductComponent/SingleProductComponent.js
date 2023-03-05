@@ -37,8 +37,7 @@ class SingleProductComponent extends Component {
     //  console.log(cartItems.map(item=> console.log(item.selectedAttribute.displayValue)))
 
     const objectValues = Object.values(setAttribute)
-    // console.log(objectValues.map((itemof) => console.log(itemof.value)))
-    // console.log(objectKeys)
+
 
     return (
       <div>
@@ -68,7 +67,7 @@ class SingleProductComponent extends Component {
               )}
             </div>
           </Carousel>
-          <ProductContent>
+          <ProductContent >
             <h3>{data?.product?.name}</h3>
             <div
               dangerouslySetInnerHTML={{
@@ -79,8 +78,8 @@ class SingleProductComponent extends Component {
               const { name, type, items } = attribute;
 
               return (
-                <div key={index}>
-                  <h3>{name}</h3>
+                <div key={name}>
+                  <h3 key={name}> {`${name}:`}</h3>
                   {type === "swatch" ? (
                     <div style={{ display: "flex" }}>
                       {items.map((item) => {
@@ -120,6 +119,7 @@ class SingleProductComponent extends Component {
                             name="attribute"
                             value={`${item.value}`}
                             key={item.id}
+
                             onClick={() =>
                               changeAttribute(attribute.name, {
                                 value,
@@ -228,12 +228,7 @@ const ProductContent = styled.div`
      
     }
   }
-  p:hover {
-    background: black;
-    color: white;
-    transition: all 300ms ease;
   
-  }
   p.selected{
     text-align: center;
     display: flex; 
@@ -260,7 +255,11 @@ const ProductContent = styled.div`
     border: 1px solid;
     font-weight: 800;
    
-  }
+  } 
+  p.unselected:hover{
+    background-color:black;
+    color:white;
+    transition: all 300ms ease;}
 `;
 const Carousel = styled.div`
   display: grid;
