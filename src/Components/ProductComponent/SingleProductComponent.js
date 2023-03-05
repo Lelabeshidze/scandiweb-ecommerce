@@ -95,13 +95,6 @@ class SingleProductComponent extends Component {
 
                             style={{
                               backgroundColor: `${item.value}`,
-                              // width: "30px",
-                              // height: "30px",
-                              // display: "flex",
-                              // margin: "5px",
-                              // cursor: "pointer",
-                              // border: "1px ",
-                              // fontWeight: "500",
                             }}
 
                             onClick={() =>
@@ -127,18 +120,6 @@ class SingleProductComponent extends Component {
                             name="attribute"
                             value={`${item.value}`}
                             key={item.id}
-                            // style={{
-                            //   textAlign: "center",
-                            //   display: "flex",
-                            //   justifyContent: "center",
-                            //   alignItems: "center",
-                            //   width: "55px",
-                            //   height: "35px",
-                            //   margin: "5px",
-                            //   cursor: "pointer",
-                            //   border: "1px solid",
-                            //   fontWeight: "800",
-                            // }}
                             onClick={() =>
                               changeAttribute(attribute.name, {
                                 value,
